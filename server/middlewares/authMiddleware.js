@@ -1,0 +1,69 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const authServices = require('../services/authServices');
+
+const { TOKEN_SECRET } = require('../config');
+
+module.exports = () => (req, res, next) => {
+    req.auth = {
+        register: async ({ email, username, password }) => {
+            const token = await registerToken(email, username, password);
+            res.json({ ok: true, token });
+        },
+        login: async ({ email, password }) => {
+            const token = await loginToken(email, password);
+            res.json({ ok: true, token });
+        }
+    };
+
+    if (verifyToken(req, res)) {
+        next();
+    } else {
+        res.json({ ok: false, error: 'Invalid token!' });
+    }
+};
+
+async function registerToken(email, username, password) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await authServices.createUser(email, username, hashedPassword);
+    return createToken(user);
+}
+
+async function loginToken(email, password) {
+    const user = await authServices.getUserByEmail(email);
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+        throw new Error('Incorrect password.');
+    }
+
+    return createToken(user);
+}
+
+async function createToken(user) {
+    const userViewModel = {
+        _id: user._id,
+        username: user.username,
+        email: user.email
+    };
+
+    const token = jwt.sign(userViewModel, TOKEN_SECRET);
+    return token;
+}
+
+function verifyToken(req, res) {
+    const token = req.headers['authorization'];
+    
+    if (token) {
+        try {
+            const verifiedData = jwt.verify(token, TOKEN_SECRET);
+            if (!verifiedData) {
+                throw new Error();
+            }
+            req.user = verifiedData;
+        } catch (err) {
+            return false;
+        }
+    }
+    return true;
+}
