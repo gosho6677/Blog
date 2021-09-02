@@ -5,7 +5,7 @@ const schema = new Schema({
     description: { type: String, required: true },
     imageUrl: { type: String, required: true },
     likes: { type: Number, required: true },
-    owner: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 });
 

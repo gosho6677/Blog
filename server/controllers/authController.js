@@ -44,7 +44,7 @@ router.post('/login',
     body('password', 'Password must be atleast 3 characters long').isLength({ min: 3 }),
     async (req, res) => {
         const { errors } = validationResult(req);
-        
+
         try {
             if (errors.length) {
                 throw new Error(errors.map(e => e.msg).join('\n'));

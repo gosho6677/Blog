@@ -16,7 +16,7 @@ module.exports = () => (req, res, next) => {
         }
     };
 
-    if (verifyToken(req, res)) {
+    if (verifyToken(req)) {
         next();
     } else {
         res.json({ ok: false, error: 'Invalid token!' });
@@ -47,13 +47,13 @@ async function createToken(user) {
         email: user.email
     };
 
-    const token = jwt.sign(userViewModel, TOKEN_SECRET);
+    const token = jwt.sign(userViewModel, TOKEN_SECRET, { expiresIn: '12h' });
     return token;
 }
 
-function verifyToken(req, res) {
+function verifyToken(req) {
     const token = req.headers['authorization'];
-    
+
     if (token) {
         try {
             const verifiedData = jwt.verify(token, TOKEN_SECRET);
