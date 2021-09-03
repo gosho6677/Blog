@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+    color: white;
+}
+
+body {
+    background-image: url('./background.jpg');
+    background-size: cover;
+}
+
+footer {
+    height: 50px;
+    margin-top: 50px;
+    color: #FFF;
+}
