@@ -18,11 +18,13 @@
     color: #FFFFFF;
     padding: 1rem;
     margin-right: 2rem;
+    transition: 1s;
 }
 
 .nav-item:hover {
-    background-color: #FFFFFF;
-    color: #000000;
+    background-color: #1c3e6b;
+    border-radius: 1rem;
+    transition: .3s;
 }
 
 .logo {
