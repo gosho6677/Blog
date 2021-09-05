@@ -4,7 +4,7 @@ import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Dashboard from './components/Dashboard/Dashboard';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import AuthContext from './contexts/AuthContext';
 import { useEffect, useState } from 'react';
@@ -13,7 +13,7 @@ import jwt_decode from 'jwt-decode';
 
 function App() {
     const [user, setUser] = useState(null);
-    const [cookies] = useCookies();
+    const [cookies, , removeCookie] = useCookies();
     useEffect(() => {
         if (cookies.token) {
             const { email, username, _id } = jwt_decode(cookies.token);
@@ -31,6 +31,11 @@ function App() {
                     <Route path='/dashboard' exact component={Dashboard} />
                     <Route path='/auth/login' exact component={Login} />
                     <Route path='/auth/register' exact component={Register} />
+                    <Route path="/auth/logout" render={() => {
+                        removeCookie('token');
+                        setUser(null);
+                        return <Redirect to='/' />;
+                    }} />
                 </Switch>
                 <Footer />
             </AuthContext.Provider>

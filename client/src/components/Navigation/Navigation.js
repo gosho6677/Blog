@@ -1,7 +1,10 @@
 import "./Navigation.css";
 import { NavLink } from "react-router-dom";
+import AuthContext from "../../contexts/AuthContext";
+import { useContext } from "react";
 
 const Navigation = () => {
+    const user = useContext(AuthContext);
 
     const activeStyle = {
         backgroundColor: '#1c3e6b'
@@ -10,13 +13,17 @@ const Navigation = () => {
     return (
         <nav className="nav">
             <NavLink className="logo" to="/">Software Blogging Website</NavLink>
-            <ul className="nav-links">
-                <li><NavLink activeStyle={activeStyle} className="nav-item" to="/dashboard">Dashboard</NavLink></li>
-                <li><NavLink activeStyle={activeStyle} className="nav-item" to="/posts/create">Create Post</NavLink></li>
-                <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/logout">Logout</NavLink></li>
-                <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/login">Login</NavLink></li>
-                <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/register">Register</NavLink></li>
-            </ul>
+            {user
+                ? <ul className="nav-links">
+                    <li><NavLink activeStyle={activeStyle} className="nav-item" to="/profile">Welcome, {user.username}!</NavLink></li>
+                    <li><NavLink activeStyle={activeStyle} className="nav-item" to="/dashboard">Dashboard</NavLink></li>
+                    <li><NavLink activeStyle={activeStyle} className="nav-item" to="/posts/create">Create Post</NavLink></li>
+                    <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/logout">Logout</NavLink></li>
+                </ul>
+                : <ul className="nav-links">
+                    <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/login">Login</NavLink></li>
+                    <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/register">Register</NavLink></li>
+                </ul>}
         </nav>
     );
 };
