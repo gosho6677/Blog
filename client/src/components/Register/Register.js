@@ -16,13 +16,16 @@ const Register = ({ history }) => {
         e.preventDefault();
 
         try {
-            if(password !== rePass) {
+            if(password.length < 5) {
+                throw new Error('Password must be atleast 5 characters long!');
+            }
+            if (password !== rePass) {
                 throw new Error('Passwords must match!');
             }
 
             const response = await authService.register(email, username, password);
 
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error(response.error);
             }
 

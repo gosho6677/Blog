@@ -14,6 +14,9 @@ const Login = ({ history }) => {
     const loginHandler = async e => {
         e.preventDefault();
         try {
+            if(password.length < 5) {
+                throw new Error('Password must be atleast 5 characters long!');
+            }
             const response = await authService.login(email, password);
 
             if(!response.ok) {
