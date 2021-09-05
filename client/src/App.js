@@ -17,7 +17,7 @@ import isGuest from './guards/isGuest';
 /*
     [x]isAuthenticated, isGuest hoc guards
     [x]login, register requirements to make acc
-    fetch all posts service
+    [x]fetch all posts service
     create post page
     create post services,
     details page,

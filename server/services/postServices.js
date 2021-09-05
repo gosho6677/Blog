@@ -2,7 +2,7 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 
 async function getAllPosts() {
-    return await Post.find({}).lean;
+    return await Post.find({});
 }
 
 async function createPost(body) {
