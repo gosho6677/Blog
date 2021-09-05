@@ -2,9 +2,15 @@ import "./Navigation.css";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
 import { useContext } from "react";
+import { useCookies } from "react-cookie";
 
 const Navigation = () => {
     const user = useContext(AuthContext);
+    const [, , removeCookie] = useCookies();
+
+    const logoutHandler = () => {
+        removeCookie('token');
+    };
 
     const activeStyle = {
         backgroundColor: '#1c3e6b'
@@ -18,7 +24,8 @@ const Navigation = () => {
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/profile">Welcome, {user.username}!</NavLink></li>
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/dashboard">Dashboard</NavLink></li>
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/posts/create">Create Post</NavLink></li>
-                    <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/logout">Logout</NavLink></li>
+                    <li><NavLink onClick={logoutHandler} className="nav-item" to="/">Logout</NavLink></li>
+                    {/* <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/logout">Logout</NavLink></li> */}
                 </ul>
                 : <ul className="nav-links">
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/login">Login</NavLink></li>
