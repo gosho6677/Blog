@@ -1,23 +1,90 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import * as authService from "../../services/authService";
+import ErrorBox from "../Notifications/ErrorBox";
+import { useCookies } from "react-cookie";
 
-const Register = () => {
+const Register = ({ history }) => {
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [rePass, setRePass] = useState('');
+    const [error, setError] = useState('');
+    const [, setCookie] = useCookies();
+
+    const registerHandler = async e => {
+        e.preventDefault();
+
+        try {
+            if(password !== rePass) {
+                throw new Error('Passwords must match!');
+            }
+
+            const response = await authService.register(email, username, password);
+
+            if(!response.ok) {
+                throw new Error(response.error);
+            }
+
+            setEmail('');
+            setUsername('');
+            setPassword('');
+            setRePass('');
+
+            setCookie('token', response.token, { path: '/' });
+
+            history.push('/dashboard');
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
     return (
         <div className="container">
             <div className="screen">
                 <div className="screen__content">
-                    <form className="login">
+                    {error && <ErrorBox error={error} setError={setError} />}
+                    <form onSubmit={registerHandler} className="login">
                         <h2 className="button__text">Register form</h2>
                         <div className="login__field">
+                            <i className="login__icon fas fa-envelope"></i>
+                            <input
+                                type="text"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                className="login__input"
+                                placeholder="Email"
+                            />
+                        </div>
+                        <div className="login__field">
                             <i className="login__icon fas fa-user"></i>
-                            <input type="text" className="login__input" placeholder="Email" />
+                            <input
+                                type="text"
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                                className="login__input"
+                                placeholder="Username"
+                            />
                         </div>
                         <div className="login__field">
                             <i className="login__icon fas fa-lock"></i>
-                            <input type="password" className="login__input" placeholder="Password" />
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                className="login__input"
+                                placeholder="Password"
+                            />
                         </div>
                         <div className="login__field">
                             <i className="login__icon fas fa-lock"></i>
-                            <input type="password" className="login__input" placeholder="Repeat Password" />
+                            <input
+                                type="password"
+                                value={rePass}
+                                onChange={e => setRePass(e.target.value)}
+                                className="login__input"
+                                placeholder="Repeat Password"
+                            />
                         </div>
                         <button className="button login__submit">
                             <span className="button__text">REGISTER</span>

@@ -4,8 +4,8 @@ import Card from './Card';
 
 const Home = () => {
     return (
-        <main classNameName="home">
-            <h1 classNameName="heading">
+        <main className="home">
+            <h1 className="heading">
                 Welcome to our site where daily software news are shared.
             </h1>
             <hr />

@@ -1,20 +1,62 @@
+import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
+import * as authService from '../../services/authService';
+import ErrorBox from '../Notifications/ErrorBox';
 import './Login.css';
 
-const Login = () => {
+const Login = ({ history }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [, setCookie] = useCookies();
+    
+    const loginHandler = async e => {
+        e.preventDefault();
+        try {
+            const response = await authService.login(email, password);
+
+            if(!response.ok) {
+                throw new Error(response.error);
+            }
+
+            setEmail('');
+            setPassword('');
+            setCookie('token', response.token, { path: '/' });
+            history.push('/dashboard');
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
     return (
         <div className="container">
+            {error && <ErrorBox error={error} setError={setError} />}
             <div className="screen">
                 <div className="screen__content">
-                    <form className="login">
+                    <form onSubmit={loginHandler} className="login">
                         <h2 className="button__text">Login form</h2>
                         <div className="login__field">
-                            <i className="login__icon fas fa-user"></i>
-                            <input type="text" className="login__input" placeholder="Email" />
+                            <i className="login__icon fas fa-envelope"></i>
+                            <input
+                                type="text"
+                                name="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                className="login__input"
+                                placeholder="Email"
+                            />
                         </div>
                         <div className="login__field">
                             <i className="login__icon fas fa-lock"></i>
-                            <input type="password" className="login__input" placeholder="Password" />
+                            <input
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                className="login__input"
+                                placeholder="Password"
+                            />
                         </div>
                         <button className="button login__submit">
                             <span className="button__text">LOGIN</span>
