@@ -8,7 +8,7 @@ const Card = ({ post }) => {
             <div className="card">
                 <div className="image-wrapper">
                     <Link className="image-link" to={`/posts/${post?._id}`}>
-                        <img src='https://drscdn.500px.org/photo/92064849/m%3D900/v2?webp=true&sig=11d9fce5c5ec6d7b5ace21eff0cf8103b220658bc787b801dfe37ddc8e0b3d48' alt='' />
+                        <img src={post?.imageUrl} alt='' />
                     </Link>
                 </div>
                 <div className="text-box-wrapper">

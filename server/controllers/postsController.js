@@ -27,7 +27,6 @@ router.post('/',
             if (errors.length) {
                 throw new Error(errors.map(e => e.msg).join('\n'));
             }
-
             const post = await req.data.createPost(info);
             res.json({ ok: true, post });
         } catch (err) {

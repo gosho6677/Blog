@@ -29,6 +29,7 @@ const Login = ({ history }) => {
             history.push('/dashboard');
         } catch (err) {
             setError(err.message);
+            console.error(err.message);
         }
     };
 

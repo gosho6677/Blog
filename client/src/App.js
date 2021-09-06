@@ -11,8 +11,11 @@ import AuthContext from './contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import jwt_decode from 'jwt-decode';
+
 import isAuth from './guards/isAuth';
 import isGuest from './guards/isGuest';
+
+import * as postService from './services/postService';
 
 // TODO: 
 /*
@@ -39,6 +42,7 @@ function App() {
         if (cookies.token) {
             const { email, username, _id } = jwt_decode(cookies.token);
             setUser({ email, username, _id });
+            postService.initializeToken(cookies.token);
         } else {
             setUser(null);
         }
