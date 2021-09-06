@@ -1,9 +1,7 @@
 .post-img {
-    /* position: relative; */
     float: left;
     margin: 1rem;
-    width: 40%;
-    height: 60%;
+    width: 20%;
 }
 
 .post-description {
@@ -20,8 +18,15 @@
     padding: 1rem;
 }
 
-.details-page-button {
+.detailsBtns {
     clear: left;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.details-page-button {
+    /* clear: left; */
     margin: .5rem;
     padding: .5rem;
     width: 5rem;
@@ -47,7 +52,15 @@
     background-color: green;
 }
 
-.detailsBtns {
-    display: flex;
-    justify-content: center;
+.comments {
+    margin: 2rem;
+    background-color: rgba(27, 78, 219, 0.3);
+}
+
+.comment {
+    border: 2px solid white;
+}
+
+.comment > * {
+    margin-left: 1rem;
 }

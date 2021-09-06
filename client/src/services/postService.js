@@ -26,3 +26,14 @@ export const create = async (body) => {
     });
     return await resp.json();
 };
+
+export const del = async id => {
+    const resp = await fetch(`${baseUrl}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+    });
+    return resp.json();
+};
