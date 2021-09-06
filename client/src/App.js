@@ -16,14 +16,15 @@ import isAuth from './guards/isAuth';
 import isGuest from './guards/isGuest';
 
 import * as postService from './services/postService';
+import Details from './components/Details/Details';
 
 // TODO: 
 /*
     [x]isAuthenticated, isGuest hoc guards
     [x]login, register requirements to make acc
     [x]fetch all posts service
-    create post page
-    create post services,
+    [x]create post page
+    [x]create post services,
     details page,
     edit post page,
     edit post services,
@@ -58,6 +59,7 @@ function App() {
                     <Route path='/auth/login' exact component={isAuth(Login)} />
                     <Route path='/auth/register' exact component={isAuth(Register)} />
                     <Route path='/posts/create' exact component={Create} />
+                    <Route path='/posts/:id' exact component={Details} />
                 </Switch>
                 <Footer />
             </AuthContext.Provider>

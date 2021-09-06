@@ -20,6 +20,7 @@ async function createPost(body) {
 
 async function getPostById(id) {
     const post = await Post.findById(id).populate('owner');
+    post.owner.password = '';
     return post;
 }
 

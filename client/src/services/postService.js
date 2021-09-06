@@ -10,6 +10,11 @@ export const getAll = async () => {
     return await resp.json();
 };
 
+export const getById = async id => {
+    const resp = await fetch(`${baseUrl}/${id}`);
+    return await resp.json();
+};
+
 export const create = async (body) => {
     const resp = await fetch(baseUrl, {
         method: 'POST',

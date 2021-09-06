@@ -1,0 +1,53 @@
+.post-img {
+    /* position: relative; */
+    float: left;
+    margin: 1rem;
+    width: 40%;
+    height: 60%;
+}
+
+.post-description {
+    margin: 1rem;
+    padding: 1rem;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background-color: rgba(34, 29, 99, 0.637);
+}
+
+.post-title {
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.details-page-button {
+    clear: left;
+    margin: .5rem;
+    padding: .5rem;
+    width: 5rem;
+    background-color: rgba(38, 16, 160, 0.541);
+    border-radius: 5px;
+    color: white;
+    border: hidden;
+    text-decoration: none;
+    text-align: center;
+}
+
+.details-page-button:hover {
+    transition: 1s;
+    transition-timing-function: ease-in-out;
+    cursor: pointer;
+}
+
+.red:hover {
+    background-color: red;
+}
+
+.green:hover {
+    background-color: green;
+}
+
+.detailsBtns {
+    display: flex;
+    justify-content: center;
+}
