@@ -25,10 +25,10 @@ import Details from './components/Details/Details';
     [x]fetch all posts service
     [x]create post page
     [x]create post services,
-    details page,
+    [x]details page,
     edit post page,
     edit post services,
-    delete post,
+    [x]delete post,
     like post/adjust backend endpoint also,
     comment post/adjust backend endpoint also,
     get top 3 most liked posts query for home page,

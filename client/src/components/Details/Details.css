@@ -64,3 +64,29 @@
 .comment > * {
     margin-left: 1rem;
 }
+
+.form-comment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-comment-btn {
+    background-color: rgba(27, 78, 219, 0.5);
+    padding: .5rem 2rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-comment-btn:hover {
+    background-color: rgba(141, 166, 235, 0.603);
+    transition: 1s;
+}
+
+.form-textarea {
+    background-color: rgba(60, 88, 241, 0.529);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px 5px #000000;
+}

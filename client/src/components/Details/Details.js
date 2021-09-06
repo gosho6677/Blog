@@ -28,8 +28,8 @@ const Details = ({ match, history }) => {
 
     const deleteHandler = async e => {
         try {
-            const resp = await postService.del(postId); 
-            if(!resp.ok) {
+            const resp = await postService.del(postId);
+            if (!resp.ok) {
                 throw new Error(resp.error);
             }
             history.push('/dashboard');
@@ -56,22 +56,35 @@ const Details = ({ match, history }) => {
             <h3>**Comments</h3> <hr />
             <div className="comments">
                 <div className="comment">
-                    <p><span className="fas fa-user"></span><em> User dsakjdals commented:</em></p>
-                    <p>kjldaljkadsjkladksjadd</p>
+                    <p><i className="fas fa-user" /><em> User dsakjdals commented:</em></p>
+                    <p><i className="fas fa-comment" /> kjldaljkadsjkladksjadd</p>
                 </div>
                 <div className="comment">
-                    <p><span className="fas fa-user"></span><em> User dsakjdals commented:</em></p>
-                    <p>kjldaljkadsjkladksjadd</p>
+                    <p><i className="fas fa-user" /><em> User dsakjdals commented:</em></p>
+                    <p><i className="fas fa-comment" /> kjldaljkadsjkladksjadd</p>
                 </div>
                 <div className="comment">
-                    <p><span className="fas fa-user"></span><em> User dsakjdals commented:</em></p>
-                    <p>kjldaljkadsjkladksjadd</p>
+                    <p><i className="fas fa-user" /><em> User dsakjdals commented:</em></p>
+                    <p><i className="fas fa-comment" /> kjldaljkadsjkladksjadd</p>
                 </div>
                 <div className="comment">
-                    <p><span className="fas fa-user"></span><em> User dsakjdals commented:</em></p>
-                    <p>kjldaljkadsjkladksjadd</p>
+                    <p><i className="fas fa-user" /><em> User dsakjdals commented:</em></p>
+                    <p><i className="fas fa-comment" /> kjldaljkadsjkladksjadd</p>
                 </div>
             </div>
+
+            <form className="form-comment">
+                <h2>Comment:</h2>
+                <p>
+                    <textarea
+                        rows="12"
+                        cols="50"
+                        type="text"
+                        className="form-textarea"
+                    />
+                </p>
+                <input className="form-comment-btn" type="submit" value="Submit" />
+            </form>
         </div>
     );
 };
