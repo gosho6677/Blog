@@ -4,6 +4,7 @@ import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Dashboard from './components/Dashboard/Dashboard';
+import Create from './components/Create/Create';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import AuthContext from './contexts/AuthContext';
@@ -52,6 +53,7 @@ function App() {
                     <Route path='/dashboard' exact component={isGuest(Dashboard)} />
                     <Route path='/auth/login' exact component={isAuth(Login)} />
                     <Route path='/auth/register' exact component={isAuth(Register)} />
+                    <Route path='/posts/create' exact component={Create} />
                 </Switch>
                 <Footer />
             </AuthContext.Provider>

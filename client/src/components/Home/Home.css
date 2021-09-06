@@ -14,11 +14,11 @@ section {
     background-color: rgba(184, 182, 182, 0.1);
 }
 
-p {
+/* p {
     backdrop-filter: blur(5px);
     background-color: rgba(184, 182, 182, 0.1);
     text-align: center;
-}
+} */
 
 .cards {
     width: 100%;
