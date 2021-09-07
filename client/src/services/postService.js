@@ -10,6 +10,11 @@ export const getAll = async () => {
     return await resp.json();
 };
 
+export const getTopThree = async () => {
+    const resp = await fetch(`${baseUrl}/top-three-most-liked`);
+    return await resp.json();
+};
+
 export const getById = async id => {
     const resp = await fetch(`${baseUrl}/${id}`);
     return await resp.json();

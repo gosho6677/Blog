@@ -30,7 +30,7 @@ import Edit from './components/Edit/Edit';
     [x]edit post page,
     [x]edit post services,
     [x]delete post,
-    like post/adjust backend endpoint also,
+    [x]like post/adjust backend endpoint also,
     comment post/adjust backend endpoint also,
     get top 3 most liked posts query for home page,
     dashboard sort posts e.g. by likes, by comments, by date added,

@@ -7,6 +7,15 @@ router.get('/', async (req, res) => {
     res.json({ ok: true, posts });
 });
 
+router.get('/top-three-most-liked', async (req, res) => {
+    try {
+        const posts = await req.data.getTopThree();
+        res.json({ ok: true, posts });
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
+
 router.post('/',
     isAuthorized(),
     body('title', 'Title must be atleast 3 characters long.').isLength({ min: 3 }),

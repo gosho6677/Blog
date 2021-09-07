@@ -5,6 +5,23 @@ async function getAllPosts() {
     return await Post.find({});
 }
 
+async function getTopThree() {
+    const posts = await Post.aggregate(
+        [
+            { "$project": {
+                "title": 1,
+                "description": 1,
+                "imageUrl": 1,
+                "likes": 1,
+                "length": { "$size": "$likes" }
+            }},
+            { "$sort": { "length": -1 } },
+            { "$limit": 3 }
+        ]
+    );
+    return posts;
+}
+
 async function createPost(body) {
     const post = new Post(body);
     const userId = body.owner;
@@ -62,6 +79,7 @@ async function dislikePost(userId, postId) {
 
 module.exports = {
     getAllPosts,
+    getTopThree,
     createPost,
     getPostById,
     editPost,
