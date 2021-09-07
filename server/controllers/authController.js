@@ -28,7 +28,7 @@ router.post('/register',
 
             await req.auth.register(req.body);
         } catch (err) {
-            res.json({ ok: false, error: err.message });
+            res.status(400).json({ ok: false, error: err.message });
         }
     });
 
@@ -52,7 +52,7 @@ router.post('/login',
 
             await req.auth.login(req.body);
         } catch (err) {
-            res.json({ ok: false, error: err.message });
+            res.status(400).json({ ok: false, error: err.message });
         }
     });
 

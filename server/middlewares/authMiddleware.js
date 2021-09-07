@@ -8,7 +8,7 @@ module.exports = () => (req, res, next) => {
     req.auth = {
         register: async ({ email, username, password }) => {
             const token = await registerToken(email, username, password);
-            res.json({ ok: true, token });
+            res.status(201).json({ ok: true, token });
         },
         login: async ({ email, password }) => {
             const token = await loginToken(email, password);
@@ -19,7 +19,7 @@ module.exports = () => (req, res, next) => {
     if (verifyToken(req)) {
         next();
     } else {
-        res.json({ ok: false, error: 'Invalid token!' });
+        res.status(401).json({ ok: false, error: 'Invalid token!' });
     }
 };
 

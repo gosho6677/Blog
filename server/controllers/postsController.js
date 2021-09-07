@@ -28,9 +28,9 @@ router.post('/',
                 throw new Error(errors.map(e => e.msg).join('\n'));
             }
             const post = await req.data.createPost(info);
-            res.json({ ok: true, post });
+            res.status(201).json({ ok: true, post });
         } catch (err) {
-            res.json({ ok: false, error: err.message });
+            res.status(400).json({ ok: false, error: err.message });
         }
     });
 
@@ -41,7 +41,7 @@ router.get('/:id', async (req, res) => {
         res.json({ ok: true, post });
 
     } catch (err) {
-        res.json({ ok: false, error: err.message });
+        res.status(400).json({ ok: false, error: err.message });
     }
 });
 
@@ -65,9 +65,9 @@ router.put('/:id',
             };
 
             const post = await req.data.editPost(info, id);
-            res.json({ ok: true, post });
+            res.status(201).json({ ok: true, post });
         } catch (err) {
-            res.json({ ok: false, error: err.message });
+            res.status(400).json({ ok: false, error: err.message });
         }
     });
 
@@ -79,7 +79,7 @@ router.delete('/:id', isAuthorized(), (req, res) => {
         req.data.deletePost(userId, id);
         res.json({ ok: true });
     } catch (err) {
-        res.json({ ok: false, error: err.message });
+        res.status(400).json({ ok: false, error: err.message });
     }
 });
 
