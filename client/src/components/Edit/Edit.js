@@ -1,13 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as postService from '../../services/postService';
 import ErrorBox from '../Notifications/ErrorBox';
-import './Create.css';
 
-const Create = ({ history }) => {
+const Edit = ({ match, history }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [error, setError] = useState('');
+    const postId = match.params.id;
+
+    useEffect(() => {
+        postService.getById(postId)
+            .then(p => {
+                if(!p.ok) {
+                    throw new Error(p.error);
+                }
+                setTitle(p.post.title);
+                setDescription(p.post.description);
+                setImageUrl(p.post.imageUrl);
+            })
+            .catch(err => {
+                setError(err.message);
+            });
+    }, [postId]);
 
     const createHandler = async e => {
         e.preventDefault();
@@ -19,7 +34,7 @@ const Create = ({ history }) => {
                 throw new Error('Description must be atleast 10 characters long!');
             }
             
-            const res = await postService.create({ title, description, imageUrl });
+            const res = await postService.edit({ title, description, imageUrl }, postId);
             if(!res.ok) {
                 throw new Error(res.error);
             }
@@ -32,7 +47,7 @@ const Create = ({ history }) => {
     return (
         <div className="create-edit">
             {error && <ErrorBox error={error} setError={setError} />}
-            <h2>Create post</h2>
+            <h2>Edit post</h2>
             <form onSubmit={createHandler} className="create-edit-post">
                 <label htmlFor="title">Title</label>
                 <p>
@@ -65,9 +80,9 @@ const Create = ({ history }) => {
                         onInput={e => setImageUrl(e.target.value)}
                     />
                 </p>
-                <input type="submit" id="submitBtn" value="CREATE" />
+                <input type="submit" id="submitBtn" value="UPDATE" />
             </form>
         </div>);
 };
 
-export default Create;
+export default Edit;

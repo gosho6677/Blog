@@ -44,8 +44,10 @@ const Details = ({ match, history }) => {
             <div className="post-details">
                 <p><img className="post-img" src={post.imageUrl} alt="post url" /></p>
                 <h2 className="post-title">Title: {post.title}</h2><hr />
-                <p className="post-description"><strong>Description:</strong> <hr /> {post.description}
+                <p className="post-description">
+                    <strong>Description:</strong> {post.description}
                 </p>
+                <hr />
                 <div className="detailsBtns">
                     <p className="fas fa-heart"> Likes: {post.likes} </p>
                     <button className="details-page-button green">Like</button>

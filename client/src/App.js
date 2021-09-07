@@ -17,6 +17,7 @@ import isGuest from './guards/isGuest';
 
 import * as postService from './services/postService';
 import Details from './components/Details/Details';
+import Edit from './components/Edit/Edit';
 
 // TODO: 
 /*
@@ -34,6 +35,7 @@ import Details from './components/Details/Details';
     get top 3 most liked posts query for home page,
     dashboard sort posts e.g. by likes, by comments, by date added,
     profile page
+    extract create and edit components form into one shared
 */
 function App() {
     const [user, setUser] = useState(null);
@@ -60,6 +62,7 @@ function App() {
                     <Route path='/auth/register' exact component={isAuth(Register)} />
                     <Route path='/posts/create' exact component={Create} />
                     <Route path='/posts/:id' exact component={Details} />
+                    <Route path='/posts/edit/:id' exact component={Edit} />
                 </Switch>
                 <Footer />
             </AuthContext.Provider>

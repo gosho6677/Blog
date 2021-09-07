@@ -15,7 +15,7 @@ export const getById = async id => {
     return await resp.json();
 };
 
-export const create = async (body) => {
+export const create = async body => {
     const resp = await fetch(baseUrl, {
         method: 'POST',
         headers: {
@@ -25,6 +25,18 @@ export const create = async (body) => {
         body: JSON.stringify(body)
     });
     return await resp.json();
+};
+
+export const edit = async (body, id) => {
+    const resp = await fetch(`${baseUrl}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify(body)
+    });
+    return resp.json();
 };
 
 export const del = async id => {

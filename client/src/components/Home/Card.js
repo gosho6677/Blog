@@ -16,7 +16,7 @@ const Card = ({ post }) => {
                             {post?.title}
                         </h1>
                         <p className="text">
-                            {post?.description.slice(0, 10)}...
+                            {post?.description.slice(0, 25)}...
                         </p>
                     </div>
                 </div>
