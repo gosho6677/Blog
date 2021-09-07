@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
+const { isGuest, isAuthorized } = require('../middlewares/guards');
 const authServices = require('../services/authServices');
 
 router.post('/register',
+    isGuest(),
     body('username').custom(async val => {
         let username = await authServices.getUserByUsername(val);
         if (username) {
@@ -33,6 +35,7 @@ router.post('/register',
     });
 
 router.post('/login',
+    isGuest(),
     body('email').custom(async val => {
         const email = await authServices.getUserByEmail(val);
         
@@ -55,5 +58,14 @@ router.post('/login',
             res.status(400).json({ ok: false, error: err.message });
         }
     });
+
+    // TODO: add the request on the front end
+router.get('/logout', isAuthorized(), async (req, res) => {
+    try {
+        await req.auth.logout();
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
 
 module.exports = router;

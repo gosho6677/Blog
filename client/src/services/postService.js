@@ -36,7 +36,7 @@ export const edit = async (body, id) => {
         },
         body: JSON.stringify(body)
     });
-    return resp.json();
+    return await resp.json();
 };
 
 export const del = async id => {
@@ -47,5 +47,25 @@ export const del = async id => {
             'Authorization': token
         }
     });
-    return resp.json();
+    return await resp.json();
+};
+
+export const like = async id => {
+    const resp = await fetch(`${baseUrl}/like/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': token
+        }
+    });
+    return await resp.json();
+};
+
+export const dislike = async id => {
+    const resp = await fetch(`${baseUrl}/dislike/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': token
+        }
+    });
+    return await resp.json();
 };

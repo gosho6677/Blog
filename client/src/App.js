@@ -27,8 +27,8 @@ import Edit from './components/Edit/Edit';
     [x]create post page
     [x]create post services,
     [x]details page,
-    edit post page,
-    edit post services,
+    [x]edit post page,
+    [x]edit post services,
     [x]delete post,
     like post/adjust backend endpoint also,
     comment post/adjust backend endpoint also,
@@ -60,9 +60,9 @@ function App() {
                     <Route path='/dashboard' exact component={isGuest(Dashboard)} />
                     <Route path='/auth/login' exact component={isAuth(Login)} />
                     <Route path='/auth/register' exact component={isAuth(Register)} />
-                    <Route path='/posts/create' exact component={Create} />
+                    <Route path='/posts/create' exact component={isGuest(Create)} />
                     <Route path='/posts/:id' exact component={Details} />
-                    <Route path='/posts/edit/:id' exact component={Edit} />
+                    <Route path='/posts/edit/:id' exact component={isGuest(Edit)} />
                 </Switch>
                 <Footer />
             </AuthContext.Provider>

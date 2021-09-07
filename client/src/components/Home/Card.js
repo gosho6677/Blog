@@ -25,7 +25,7 @@ const Card = ({ post }) => {
                     <Link className="button" to={`/posts/${post?._id}`}>
                         Read More
                     </Link>
-                    <p className="likes">Likes: {post?.likes}</p>
+                    <p className="likes">Likes: {post?.likes.length}</p>
                 </div>
             </div>
         </div>

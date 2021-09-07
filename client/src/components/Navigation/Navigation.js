@@ -24,7 +24,7 @@ const Navigation = () => {
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/profile">Welcome, {user.username}!</NavLink></li>
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/dashboard">Dashboard</NavLink></li>
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/posts/create">Create Post</NavLink></li>
-                    <li><NavLink onClick={logoutHandler} className="nav-item" to="/">Logout</NavLink></li>
+                    <li><button onClick={logoutHandler} className="logoutBtn" to="/">Logout</button></li>
                     {/* <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/logout">Logout</NavLink></li> */}
                 </ul>
                 : <ul className="nav-links">

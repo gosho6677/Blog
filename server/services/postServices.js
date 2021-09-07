@@ -46,10 +46,26 @@ async function deletePost(userId, id) {
     await Post.findByIdAndDelete(id);
 }
 
+async function likePost(userId, postId) {
+    let post = await Post.findById(postId);
+
+    post.likes.push(userId);
+    await post.save();
+}
+
+async function dislikePost(userId, postId) {
+    let post = await Post.findById(postId);
+    let userPostIdx = post.likes.indexOf(userId);
+    post.likes.splice(userPostIdx,1);
+    await post.save();
+}
+
 module.exports = {
     getAllPosts,
     createPost,
     getPostById,
     editPost,
     deletePost,
+    likePost,
+    dislikePost,
 };

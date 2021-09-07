@@ -13,7 +13,7 @@ const isGuest = (WrappedComponent) => {
                 history.push('/');
                 return null;
             }
-        });
+        }, [user, history]);
 
         return <WrappedComponent {...props} />;
     };

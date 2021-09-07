@@ -12,7 +12,7 @@ const Edit = ({ match, history }) => {
     useEffect(() => {
         postService.getById(postId)
             .then(p => {
-                if(!p.ok) {
+                if (!p.ok) {
                     throw new Error(p.error);
                 }
                 setTitle(p.post.title);
@@ -22,20 +22,25 @@ const Edit = ({ match, history }) => {
             .catch(err => {
                 setError(err.message);
             });
+        return () => {
+            setTitle('');
+            setDescription('');
+            setImageUrl('');
+        };
     }, [postId]);
 
     const createHandler = async e => {
         e.preventDefault();
         try {
-            if(title.length < 3 || title.length > 20) {
+            if (title.length < 3 || title.length > 20) {
                 throw new Error('Title must be atleast 3 characters long and less than 20!');
             }
-            if(description.length < 10) {
+            if (description.length < 10) {
                 throw new Error('Description must be atleast 10 characters long!');
             }
-            
+
             const res = await postService.edit({ title, description, imageUrl }, postId);
-            if(!res.ok) {
+            if (!res.ok) {
                 throw new Error(res.error);
             }
             history.push('/dashboard');

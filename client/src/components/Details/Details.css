@@ -39,7 +39,7 @@
 }
 
 .details-page-button:hover {
-    transition: 1s;
+    transition: .5s;
     transition-timing-function: ease-in-out;
     cursor: pointer;
 }

@@ -19,7 +19,7 @@ router.post('/',
             title: req.body.title,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
-            likes: 0,
+            // likes: 0,
             owner: req.user._id
         };
 
@@ -72,12 +72,35 @@ router.put('/:id',
     });
 
 
-router.delete('/:id', isAuthorized(), (req, res) => {
+router.delete('/:id', isAuthorized(), async (req, res) => {
     const id = req.params.id;
     const userId = req.user._id;
     try {
-        req.data.deletePost(userId, id);
+        await req.data.deletePost(userId, id);
         res.json({ ok: true });
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
+
+// likes endpoint
+router.get('/like/:id', isAuthorized(), async (req, res) => {
+    const id = req.params.id;
+    const userId = req.user._id;
+    try {
+        await req.data.likePost(userId, id);
+        res.json({ ok: true, userId });
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
+
+router.get('/dislike/:id', isAuthorized(), async (req, res) => {
+    const id = req.params.id;
+    const userId = req.user._id;
+    try {
+        await req.data.dislikePost(userId, id);
+        res.json({ ok: true, userId });
     } catch (err) {
         res.status(400).json({ ok: false, error: err.message });
     }

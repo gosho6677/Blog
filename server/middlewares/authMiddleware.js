@@ -4,6 +4,8 @@ const authServices = require('../services/authServices');
 
 const { TOKEN_SECRET } = require('../config');
 
+const tokenBlackList = [];
+
 module.exports = () => (req, res, next) => {
     req.auth = {
         register: async ({ email, username, password }) => {
@@ -13,6 +15,10 @@ module.exports = () => (req, res, next) => {
         login: async ({ email, password }) => {
             const token = await loginToken(email, password);
             res.json({ ok: true, token });
+        },
+        logout: async () => {
+            tokenBlackList.push(req.headers['authorization']);
+            res.json({ ok: true });
         }
     };
 
@@ -57,7 +63,7 @@ function verifyToken(req) {
     if (token) {
         try {
             const verifiedData = jwt.verify(token, TOKEN_SECRET);
-            if (!verifiedData) {
+            if (!verifiedData || tokenBlackList.includes(token)) {
                 throw new Error();
             }
             req.user = verifiedData;
