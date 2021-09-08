@@ -1,5 +1,5 @@
 const baseUrl = 'http://localhost:5000/posts';
-let token = '';
+export let token = '';
 
 export const initializeToken = (authToken) => {
     token = authToken || '';

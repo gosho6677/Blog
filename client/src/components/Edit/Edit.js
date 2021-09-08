@@ -26,6 +26,7 @@ const Edit = ({ match, history }) => {
             setTitle('');
             setDescription('');
             setImageUrl('');
+            setError('');
         };
     }, [postId]);
 

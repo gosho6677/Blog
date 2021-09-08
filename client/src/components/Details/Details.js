@@ -125,7 +125,7 @@ const Details = ({ match, history }) => {
             </div>
             <h3>**Comments</h3> <hr />
             <div className="comments">
-                {post.comments?.length ? post.comments.map(c => <Comment comment={c} />) : <div>No comments yet!</div>}
+                {post.comments?.length ? post.comments.map(c => <Comment key={c._id} comment={c} />) : <div>No comments yet!</div>}
             </div>
 
             <form onSubmit={commentHandler} className="form-comment">

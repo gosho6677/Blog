@@ -18,6 +18,7 @@ import isGuest from './guards/isGuest';
 import * as postService from './services/postService';
 import Details from './components/Details/Details';
 import Edit from './components/Edit/Edit';
+import Profile from './components/Profile/Profile';
 
 // TODO: 
 /*
@@ -33,11 +34,12 @@ import Edit from './components/Edit/Edit';
     [x]like post/adjust backend endpoint also,
     [x]comment post/adjust backend endpoint also,
     [x]get top 3 most liked posts query for home page,
-    dashboard sort posts e.g. by likes, by comments, by date added,
+    [x]dashboard sort posts e.g. by likes
     profile page
     extract create and edit components form into one shared
     add logout get request to add token to blacklist array
     exclude nested comment owner password and posts (populate trick)
+    optional => add sorting by comments, by date added
 */
 function App() {
     const [user, setUser] = useState(null);
@@ -66,6 +68,7 @@ function App() {
                     <Route path='/posts/create' exact component={isGuest(Create)} />
                     <Route path='/posts/:id' exact component={Details} />
                     <Route path='/posts/edit/:id' exact component={isGuest(Edit)} />
+                    <Route path='/profile' exact component={isGuest(Profile)} />
                 </Switch>
                 <Footer />
             </AuthContext.Provider>

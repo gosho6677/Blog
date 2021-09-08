@@ -1,0 +1,15 @@
+.profile {
+    width: 70%;
+    margin: 0 auto;
+    border: 2px solid black;
+    padding: 1rem;
+}
+
+.profile-info p {
+    border-bottom: 2px solid black;
+}
+
+.my-posts {
+    display: flex;
+    flex-wrap: wrap;
+}
