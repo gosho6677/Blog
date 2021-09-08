@@ -20,6 +20,11 @@ const Home = () => {
             .catch(err => {
                 setError(err.message);
             });
+
+        return () => {
+            setPosts([]);
+            setError('');
+        };
     }, []);
 
     return (

@@ -74,3 +74,15 @@ export const dislike = async id => {
     });
     return await resp.json();
 };
+
+export const comment = async (description, id) => {
+    const resp = await fetch(`${baseUrl}/comment/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify({ description })
+    });
+    return await resp.json();
+};

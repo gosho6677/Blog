@@ -31,11 +31,12 @@ import Edit from './components/Edit/Edit';
     [x]edit post services,
     [x]delete post,
     [x]like post/adjust backend endpoint also,
-    comment post/adjust backend endpoint also,
-    get top 3 most liked posts query for home page,
+    [x]comment post/adjust backend endpoint also,
+    [x]get top 3 most liked posts query for home page,
     dashboard sort posts e.g. by likes, by comments, by date added,
     profile page
     extract create and edit components form into one shared
+    exclude nested comment owner password and posts (populate trick)
 */
 function App() {
     const [user, setUser] = useState(null);

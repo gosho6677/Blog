@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as postService from '../../services/postService';
 import ErrorBox from '../Notifications/ErrorBox';
 import AuthContext from '../../contexts/AuthContext';
+import Comment from './Comment';
 import './Details.css';
 
 const Details = ({ match, history }) => {
@@ -76,6 +77,29 @@ const Details = ({ match, history }) => {
         }
     };
 
+    const commentHandler = async e => {
+        e.preventDefault();
+
+        try {
+            const commentDescription = e.target.comment.value;
+
+            if (!commentDescription) {
+                throw new Error('Comment must be atleast 1 character long!');
+            }
+
+            const resp = await postService.comment(commentDescription, post?._id);
+            if (!resp.ok) {
+                throw new Error(resp.error);
+            }
+            setPost(oldPost => ({
+                ...oldPost,
+                comments: [...oldPost.comments, resp.comment]
+            }));
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
     return (
         <div>
             {error && <ErrorBox error={error} setError={setError} />}
@@ -100,25 +124,10 @@ const Details = ({ match, history }) => {
             </div>
             <h3>**Comments</h3> <hr />
             <div className="comments">
-                <div className="comment">
-                    <p><i className="fas fa-user" /><em> User dsakjdals commented:</em></p>
-                    <p><i className="fas fa-comment" /> kjldaljkadsjkladksjadd</p>
-                </div>
-                <div className="comment">
-                    <p><i className="fas fa-user" /><em> User dsakjdals commented:</em></p>
-                    <p><i className="fas fa-comment" /> kjldaljkadsjkladksjadd</p>
-                </div>
-                <div className="comment">
-                    <p><i className="fas fa-user" /><em> User dsakjdals commented:</em></p>
-                    <p><i className="fas fa-comment" /> kjldaljkadsjkladksjadd</p>
-                </div>
-                <div className="comment">
-                    <p><i className="fas fa-user" /><em> User dsakjdals commented:</em></p>
-                    <p><i className="fas fa-comment" /> kjldaljkadsjkladksjadd</p>
-                </div>
+                {post.comments?.length ? post.comments.map(c => <Comment comment={c} />) : <div>No comments yet!</div>}
             </div>
 
-            <form className="form-comment">
+            <form onSubmit={commentHandler} className="form-comment">
                 <h2>Comment:</h2>
                 <p>
                     <textarea
@@ -126,6 +135,7 @@ const Details = ({ match, history }) => {
                         cols="50"
                         type="text"
                         className="form-textarea"
+                        name="comment"
                     />
                 </p>
                 <input className="form-comment-btn" type="submit" value="Submit" />

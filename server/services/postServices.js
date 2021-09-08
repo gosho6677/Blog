@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 async function getAllPosts() {
     return await Post.find({});
@@ -8,13 +9,15 @@ async function getAllPosts() {
 async function getTopThree() {
     const posts = await Post.aggregate(
         [
-            { "$project": {
-                "title": 1,
-                "description": 1,
-                "imageUrl": 1,
-                "likes": 1,
-                "length": { "$size": "$likes" }
-            }},
+            {
+                "$project": {
+                    "title": 1,
+                    "description": 1,
+                    "imageUrl": 1,
+                    "likes": 1,
+                    "length": { "$size": "$likes" }
+                }
+            },
             { "$sort": { "length": -1 } },
             { "$limit": 3 }
         ]
@@ -36,15 +39,23 @@ async function createPost(body) {
 }
 
 async function getPostById(id) {
-    const post = await Post.findById(id).populate('owner');
-    post.owner.password = '';
+    const post = await Post
+        .findById(id)
+        .populate('owner', '-password -posts')
+        .populate({ path: 'comments', populate: { path: 'owner', model: 'User' } });
+
+    post.comments.forEach(c => {
+        c.owner.password = '';
+        c.owner.posts = [];
+    });
+
     return post;
 }
 
 async function editPost(body, id) {
     const current = await Post.findById(id);
 
-    if(!current) {
+    if (!current) {
         throw new Error('No such post in database.');
     }
 
@@ -73,8 +84,21 @@ async function likePost(userId, postId) {
 async function dislikePost(userId, postId) {
     let post = await Post.findById(postId);
     let userPostIdx = post.likes.indexOf(userId);
-    post.likes.splice(userPostIdx,1);
+    post.likes.splice(userPostIdx, 1);
     await post.save();
+}
+
+async function commentPost(description, postId, userId) {
+    const comment = new Comment({ description });
+    const post = await Post.findById(postId);
+
+    comment.owner = userId;
+    post.comments.push(comment);
+
+    await comment.save();
+    await post.save();
+
+    return comment.populate('owner', '-password');
 }
 
 module.exports = {
@@ -86,4 +110,5 @@ module.exports = {
     deletePost,
     likePost,
     dislikePost,
+    commentPost,
 };
