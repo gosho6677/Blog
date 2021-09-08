@@ -2,8 +2,34 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
-async function getAllPosts() {
-    return await Post.find({});
+async function getAllPosts(query) {
+    let posts;
+
+    const type = {
+        asc: 1,
+        desc: -1
+    };
+
+    if (query) {
+        posts = await Post.aggregate(
+            [
+                {
+                    "$project": {
+                        "title": 1,
+                        "description": 1,
+                        "imageUrl": 1,
+                        "likes": 1,
+                        "length": { "$size": "$likes" }
+                    }
+                },
+                { "$sort": { "length": type[query] } }
+            ]
+        );
+    } else {
+        posts = await Post.find({});
+    }
+
+    return posts;
 }
 
 async function getTopThree() {

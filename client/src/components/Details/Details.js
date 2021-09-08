@@ -81,13 +81,13 @@ const Details = ({ match, history }) => {
         e.preventDefault();
 
         try {
-            const commentDescription = e.target.comment.value;
+            let commentDescription = e.target.comment;
 
-            if (!commentDescription) {
+            if (!commentDescription.value) {
                 throw new Error('Comment must be atleast 1 character long!');
             }
 
-            const resp = await postService.comment(commentDescription, post?._id);
+            const resp = await postService.comment(commentDescription.value, post?._id);
             if (!resp.ok) {
                 throw new Error(resp.error);
             }
@@ -95,6 +95,7 @@ const Details = ({ match, history }) => {
                 ...oldPost,
                 comments: [...oldPost.comments, resp.comment]
             }));
+            commentDescription.value = '';
         } catch (err) {
             setError(err.message);
         }

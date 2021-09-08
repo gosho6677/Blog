@@ -36,6 +36,7 @@ import Edit from './components/Edit/Edit';
     dashboard sort posts e.g. by likes, by comments, by date added,
     profile page
     extract create and edit components form into one shared
+    add logout get request to add token to blacklist array
     exclude nested comment owner password and posts (populate trick)
 */
 function App() {
@@ -59,6 +60,7 @@ function App() {
                 <Switch>
                     <Route path='/' exact component={isAuth(Home)} />
                     <Route path='/dashboard' exact component={isGuest(Dashboard)} />
+                    <Route path='/dashboard' component={isGuest(Dashboard)} />
                     <Route path='/auth/login' exact component={isAuth(Login)} />
                     <Route path='/auth/register' exact component={isAuth(Register)} />
                     <Route path='/posts/create' exact component={isGuest(Create)} />

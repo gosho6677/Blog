@@ -3,7 +3,8 @@ const { body, validationResult } = require('express-validator');
 const { isAuthorized } = require('../middlewares/guards');
 
 router.get('/', async (req, res) => {
-    const posts = await req.data.getAllPosts();
+    const query = req.query.sort || '';
+    const posts = await req.data.getAllPosts(query);
     res.json({ ok: true, posts });
 });
 

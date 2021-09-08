@@ -5,8 +5,8 @@ export const initializeToken = (authToken) => {
     token = authToken || '';
 };
 
-export const getAll = async () => {
-    const resp = await fetch(baseUrl);
+export const getAll = async (query = '') => {
+    const resp = await fetch(`${baseUrl}${query}`);
     return await resp.json();
 };
 
