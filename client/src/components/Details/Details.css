@@ -53,16 +53,28 @@
 }
 
 .comments {
-    margin: 2rem;
-    background-color: rgba(27, 78, 219, 0.3);
+    width: 70%;
+    max-width: 1200px;
+    min-width: 600px;
+    margin: 2rem auto;
+    background-color: rgba(27, 78, 219, 0.4);
 }
 
 .comment {
     border: 2px solid white;
+    word-wrap: break-word;
 }
 
 .comment > * {
     margin-left: 1rem;
+}
+
+.user-comment, .date-comment {
+    display: inline-block;
+}
+
+.date-comment {
+    margin-left: 58%;
 }
 
 .form-comment {

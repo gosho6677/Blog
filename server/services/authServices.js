@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 async function createUser(email, username, password) {
-    const user = new User({ email, username, password });
+    const user = new User({ email, username, password, iat: Date.now() });
     return await user.save();
 }
 

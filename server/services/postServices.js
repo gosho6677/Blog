@@ -119,6 +119,7 @@ async function commentPost(description, postId, userId) {
     const post = await Post.findById(postId);
 
     comment.owner = userId;
+    comment.iat = Date.now();
     post.comments.push(comment);
 
     await comment.save();

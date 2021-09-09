@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { setDate } from "../../utils/setDate";
 
 const Card = ({ post }) => {
 
@@ -18,6 +19,7 @@ const Card = ({ post }) => {
                         <p className="text">
                             {post?.description.slice(0, 25)}...
                         </p>
+                        <p className="card-date">Published: {setDate(post.iat)}</p>
                     </div>
                 </div>
 
@@ -25,7 +27,7 @@ const Card = ({ post }) => {
                     <Link className="button" to={`/posts/${post?._id}`}>
                         Read More
                     </Link>
-                    <p className="likes">Likes: {post?.likes.length}</p>
+                    <p className="likes"><i className="fas fa-heart" /> Likes: {post?.likes.length}</p>
                 </div>
             </div>
         </div>

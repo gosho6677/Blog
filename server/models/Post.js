@@ -6,6 +6,7 @@ const schema = new Schema({
     imageUrl: { type: String, required: true },
     likes: [{ type: String }],
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    iat: { type: Date, required: true },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 });
 

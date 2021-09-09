@@ -31,6 +31,12 @@ const Login = ({ history }) => {
             setError(err.message);
             console.error(err.message);
         }
+
+        return () => {
+            setEmail('');
+            setPassword('');
+            setError('');
+        };
     };
 
     return (

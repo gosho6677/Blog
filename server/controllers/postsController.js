@@ -29,8 +29,8 @@ router.post('/',
             title: req.body.title,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
-            // likes: 0,
-            owner: req.user._id
+            owner: req.user._id,
+            iat: Date.now(),
         };
 
         try {

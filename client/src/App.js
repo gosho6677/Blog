@@ -22,24 +22,28 @@ import Profile from './components/Profile/Profile';
 
 // TODO: 
 /*
-    [x]isAuthenticated, isGuest hoc guards
-    [x]login, register requirements to make acc
-    [x]fetch all posts service
-    [x]create post page
-    [x]create post services,
-    [x]details page,
-    [x]edit post page,
-    [x]edit post services,
-    [x]delete post,
-    [x]like post/adjust backend endpoint also,
-    [x]comment post/adjust backend endpoint also,
-    [x]get top 3 most liked posts query for home page,
-    [x]dashboard sort posts e.g. by likes
-    profile page
-    extract create and edit components form into one shared
-    add logout get request to add token to blacklist array
-    exclude nested comment owner password and posts (populate trick)
-    optional => add sorting by comments, by date added
+    [x] isAuthenticated, isGuest hoc guards
+    [x] login, register requirements to make acc
+    [x] fetch all posts service
+    [x] create post page
+    [x] create post services,
+    [x] details page,
+    [x] edit post page,
+    [x] edit post services,
+    [x] delete post,
+    [x] like post/adjust backend endpoint also,
+    [x] comment post/adjust backend endpoint also,
+    [x] get top 3 most liked posts query for home page,
+    [x] dashboard sort posts e.g. by likes
+    [x] profile page
+    [] add issued at on post and comment models + controllers
+    [] switch to front end sorting for UX purposes
+    [] add sort by most recent and oldest
+    [] add search bar in dashboard
+    [] extract create and edit components form into one shared
+    [] add logout get request to add token to blacklist array
+    [] add pagination FE/BE
+    [] exclude nested comment owner password and posts (populate trick)
 */
 function App() {
     const [user, setUser] = useState(null);
