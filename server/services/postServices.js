@@ -9,7 +9,7 @@ async function getAllPosts(query) {
         asc: 1,
         desc: -1
     };
-
+    // using only front end sorting atm might use it in future. (aggregation framework)
     if (query) {
         posts = await Post.aggregate(
             [
@@ -117,9 +117,11 @@ async function dislikePost(userId, postId) {
 async function commentPost(description, postId, userId) {
     const comment = new Comment({ description });
     const post = await Post.findById(postId);
+    const time = Date.now();
 
     comment.owner = userId;
-    comment.iat = Date.now();
+    comment.iat = time;
+    comment.unixTime = time;
     post.comments.push(comment);
 
     await comment.save();

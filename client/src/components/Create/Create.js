@@ -27,6 +27,13 @@ const Create = ({ history }) => {
         } catch (err) {
             setError(err.message);
         }
+
+        return () => {
+            setTitle('');
+            setDescription('');
+            setImageUrl('');
+            setError('');
+        };
     };
 
     return (

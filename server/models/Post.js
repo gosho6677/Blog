@@ -7,6 +7,7 @@ const schema = new Schema({
     likes: [{ type: String }],
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
     iat: { type: Date, required: true },
+    unixTime: { type: String, required: true },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 });
 

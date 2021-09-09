@@ -24,13 +24,15 @@ router.post('/',
     body('imageUrl', 'Image URL must be a valid URL.').isURL(),
     async (req, res) => {
         const { errors } = validationResult(req);
+        const time = Date.now();
 
         const info = {
             title: req.body.title,
             description: req.body.description,
             imageUrl: req.body.imageUrl,
             owner: req.user._id,
-            iat: Date.now(),
+            iat: time,
+            unixTime: time,
         };
 
         try {

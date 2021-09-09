@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import Card from '../Home/Card';
 import * as postService from '../../services/postService';
 import './Dashboard.css';
-import { Link } from 'react-router-dom';
 
 const Dashboard = ({ location }) => {
     const [posts, setPosts] = useState([]);
-    
+    // const [searchQuery, setSearchQuery] = useState();
+    // const filteredPosts = 
+
     useEffect(() => {
-        const query = location.search;
-        postService.getAll(query)
+        postService.getAll()
             .then(res => {
                 if (res.ok) {
                     setPosts(res.posts);
@@ -19,15 +19,51 @@ const Dashboard = ({ location }) => {
         return () => {
             setPosts([]);
         };
-    }, [location.search]);
+    }, []);
+
+    const sortHandler = (e) => {
+        switch (e.target.value) {
+            case 'desc': {
+                setPosts(oldPosts => {
+                    return [...oldPosts.sort((a, b) => b.likes.length - a.likes.length)];
+                });
+                return;
+            }
+            case 'asc': {
+                setPosts(oldPosts => {
+                    return [...oldPosts.sort((a, b) => a.likes.length - b.likes.length)];
+                });
+                return;
+            }
+            case 'oldest': {
+                setPosts(oldPosts => {
+                    return [...oldPosts.sort((a, b) => a.unixTime - b.unixTime)];
+                });
+                return;
+            }
+            case 'recent': {
+                setPosts(oldPosts => {
+                    return [...oldPosts.sort((a, b) => b.unixTime - a.unixTime)];
+                });
+                return;
+            }
+            default:
+                return console.log(e.target);
+        }
+
+    };
 
     return (
         <section>
-            <ul className="sorts">
-                <li><span>Sort by:</span></li>
-                <li><Link to="/dashboard?sort=asc">Likes ascending</Link></li>
-                <li><Link to="/dashboard?sort=desc">Likes descending</Link></li>
-            </ul>
+            <div className="sort">
+                <p className="sort-p">Sort by: </p>
+                <select onChange={sortHandler} className="sort-select">
+                    <option value="oldest">Oldest</option>
+                    <option value="recent">Recent</option>
+                    <option value="asc">Likes asc.</option>
+                    <option value="desc">Likes desc.</option>
+                </select>
+            </div>
             <div className="wrapper">
                 {posts.length ? posts.map(p => <Card key={p._id} post={p} />) : <div>No posts available at the moment...</div>}
             </div>

@@ -36,7 +36,7 @@ import Profile from './components/Profile/Profile';
     [x] get top 3 most liked posts query for home page,
     [x] dashboard sort posts e.g. by likes
     [x] profile page
-    [] add issued at on post and comment models + controllers
+    [x] add issued at on post and comment models + controllers
     [] switch to front end sorting for UX purposes
     [] add sort by most recent and oldest
     [] add search bar in dashboard
@@ -66,7 +66,6 @@ function App() {
                 <Switch>
                     <Route path='/' exact component={isAuth(Home)} />
                     <Route path='/dashboard' exact component={isGuest(Dashboard)} />
-                    <Route path='/dashboard' component={isGuest(Dashboard)} />
                     <Route path='/auth/login' exact component={isAuth(Login)} />
                     <Route path='/auth/register' exact component={isAuth(Register)} />
                     <Route path='/posts/create' exact component={isGuest(Create)} />
