@@ -37,8 +37,8 @@ import Profile from './components/Profile/Profile';
     [x] dashboard sort posts e.g. by likes
     [x] profile page
     [x] add issued at on post and comment models + controllers
-    [] switch to front end sorting for UX purposes
-    [] add sort by most recent and oldest
+    [x] switch to front end sorting for UX purposes
+    [x] add sort by most recent and oldest
     [] add search bar in dashboard
     [] extract create and edit components form into one shared
     [] add logout get request to add token to blacklist array

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import Card from '../Home/Card';
+import Search from './Search';
 import * as postService from '../../services/postService';
+import { filterPosts } from '../../utils/filterPosts';
 import './Dashboard.css';
 
 const Dashboard = ({ location }) => {
     const [posts, setPosts] = useState([]);
-    // const [searchQuery, setSearchQuery] = useState();
-    // const filteredPosts = 
+    const [searchQuery, setSearchQuery] = useState('');
+    const filteredPosts = filterPosts(searchQuery, posts);
 
     useEffect(() => {
         postService.getAll()
@@ -56,6 +58,7 @@ const Dashboard = ({ location }) => {
     return (
         <section>
             <div className="sort">
+                <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                 <p className="sort-p">Sort by: </p>
                 <select onChange={sortHandler} className="sort-select">
                     <option value="oldest">Oldest</option>
@@ -65,7 +68,10 @@ const Dashboard = ({ location }) => {
                 </select>
             </div>
             <div className="wrapper">
-                {posts.length ? posts.map(p => <Card key={p._id} post={p} />) : <div>No posts available at the moment...</div>}
+                {filteredPosts.length 
+                    ? filteredPosts.map(p => <Card key={p._id} post={p} />) 
+                    : <div>No posts available at the moment...</div>
+                }
             </div>
 
         </section>

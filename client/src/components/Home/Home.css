@@ -30,6 +30,8 @@
     align-items: center;
 }
 
+
+
 .card-wrapper {
     padding: 2%;
 }
@@ -41,11 +43,15 @@
 .card {
     position: relative;
     max-width: 250px;
-    background-color: #7a81df93;
+    background-color: #172360ab;
     border-radius: 8px;
     overflow: hidden;
     padding-bottom: 10px;
     box-shadow: 1px 2px 8px rgba(100, 100, 100, 0.5);
+}
+
+.card p:hover, .card h1:hover {
+    cursor: default;
 }
 
 .image-wrapper {
@@ -109,18 +115,14 @@
     font-family: 'Poppins';
     font-size: 15px;
     font-weight: 700;
-    color: #000000;
+    color: #ffffff;
     text-decoration: none;
 }
 
 .button:hover {
-    color: rgb(255, 255, 255);
+    color: rgb(134, 132, 132);
     transition: linear 0.2s;
 }
-/* 
-.button-wrapper {
-    display: flex;
-} */
 
 .likes {
     display: inline-block;
@@ -129,10 +131,5 @@
     font-family: 'Poppins';
     font-size: 12px;
     font-weight: 700;
-    color: #000000; 
-}
-
-.likes:hover {
-    color: rgb(255, 255, 255);
-    transition: linear 0.2s;
+    color: #ffffff; 
 }
