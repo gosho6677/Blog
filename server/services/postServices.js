@@ -67,13 +67,8 @@ async function createPost(body) {
 async function getPostById(id) {
     const post = await Post
         .findById(id)
-        .populate('owner', '-password -posts')
-        .populate({ path: 'comments', populate: { path: 'owner', model: 'User' } });
-
-    post.comments.forEach(c => {
-        c.owner.password = '';
-        c.owner.posts = [];
-    });
+        .populate('owner', '-password -posts -__v')
+        .populate({ path: 'comments', populate: { path: 'owner', model: 'User', select: '-posts -password -iat -__v' } });
 
     return post;
 }
