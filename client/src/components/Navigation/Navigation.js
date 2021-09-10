@@ -1,15 +1,22 @@
-import "./Navigation.css";
-import { NavLink } from "react-router-dom";
-import AuthContext from "../../contexts/AuthContext";
 import { useContext } from "react";
 import { useCookies } from "react-cookie";
+import { NavLink } from "react-router-dom";
+import AuthContext from "../../contexts/AuthContext";
+import * as authService from '../../services/authService';
+import "./Navigation.css";
+
 
 const Navigation = () => {
     const user = useContext(AuthContext);
     const [, , removeCookie] = useCookies();
 
-    const logoutHandler = () => {
+    const logoutHandler = async () => {
         removeCookie('token');
+        const resp = await authService.logout();
+
+        if(!resp.ok) {
+            console.error(resp.error);
+        }
     };
 
     const activeStyle = {

@@ -1,3 +1,5 @@
+import { token } from "./postService";
+
 const baseUrl = 'http://localhost:5000/auth';
 
 export const login = async (email, password) => {
@@ -20,6 +22,16 @@ export const register = async (email, username, password) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, username, password })
+    });
+    return response.json();
+};
+
+export const logout = async () => {
+    const url = `${baseUrl}/logout`;
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': token
+        }
     });
     return response.json();
 };

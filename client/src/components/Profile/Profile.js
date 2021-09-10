@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import { getCurrentUser } from '../../services/userService';
-import Card from '../Home/Card';
+import Card from '../shared/Card';
 import './Profile.css';
 
 const Profile = () => {

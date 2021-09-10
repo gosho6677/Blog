@@ -39,9 +39,9 @@ import Profile from './components/Profile/Profile';
     [x] add issued at on post and comment models + controllers
     [x] switch to front end sorting for UX purposes
     [x] add sort by most recent and oldest
-    [] add search bar in dashboard
-    [] extract create and edit components form into one shared
-    [] add logout get request to add token to blacklist array
+    [x] add search bar in dashboard
+    [x] extract create and edit components form into one shared
+    [x] add logout get request to add token to blacklist array
     [] add pagination FE/BE
     [] exclude nested comment owner password and posts (populate trick)
 */

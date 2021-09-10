@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { setDate } from "../../utils/setDate";
+import './Card.css';
 
 const Card = ({ post }) => {
 

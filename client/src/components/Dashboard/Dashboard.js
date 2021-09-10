@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Card from '../Home/Card';
+import Card from '../shared/Card';
 import Search from './Search';
 import * as postService from '../../services/postService';
 import { filterPosts } from '../../utils/filterPosts';

@@ -18,6 +18,7 @@ module.exports = () => (req, res, next) => {
         },
         logout: async () => {
             tokenBlackList.push(req.headers['authorization']);
+            console.log(`Token ${req.headers['authorization'].slice(0,25)}... blacklisted. ${tokenBlackList.length} total.`);
             res.json({ ok: true });
         }
     };
