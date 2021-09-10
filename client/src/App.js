@@ -43,8 +43,10 @@ import Profile from './components/Profile/Profile';
     [x] extract create and edit components form into one shared
     [x] add logout get request to add token to blacklist array
     [x] add pagination FE and posts per page select tag
-    [] exclude nested comment owner password and posts (populate trick)
+    [x] exclude nested comment owner password and posts (populate trick)
     [] add error boundary component
+    [] owners can delete all comments on their posts
+    [] comment creator can delete his comment on given post
 */
 function App() {
     const [user, setUser] = useState(null);
