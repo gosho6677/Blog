@@ -9,6 +9,7 @@ import Pagination from './Pagination';
 const Dashboard = ({ location }) => {
     const [posts, setPosts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [postsPerPage, setPostsPerPage] = useState(10);
     const filteredPosts = filterPosts(searchQuery, posts);
 
     useEffect(() => {
@@ -24,7 +25,11 @@ const Dashboard = ({ location }) => {
         };
     }, []);
 
-    const sortHandler = (e) => {
+    const postsPerPageHandler = e => {
+        setPostsPerPage(Number(e.target.value));
+    };
+
+    const sortHandler = e => {
         switch (e.target.value) {
             case 'desc': {
                 setPosts(oldPosts => {
@@ -60,6 +65,13 @@ const Dashboard = ({ location }) => {
         <section>
             <div className="sort">
                 <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                <p className="sort-p">Posts per page: </p>
+                <select onChange={postsPerPageHandler} className="perPage-select">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
                 <p className="sort-p">Sort by: </p>
                 <select onChange={sortHandler} className="sort-select">
                     <option value="oldest">Oldest</option>
@@ -72,7 +84,7 @@ const Dashboard = ({ location }) => {
                 ? <Pagination
                     Component={Card}
                     data={filteredPosts}
-                    dataLimit={10}
+                    dataLimit={postsPerPage}
                     pageLimit={5}
                 />
                 : <h2>No posts available at the moment...</h2>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './Pagination.css';
 
 const Pagination = ({
@@ -7,8 +7,19 @@ const Pagination = ({
     dataLimit,
     pageLimit,
 }) => {
-    const [pages] = useState(Math.ceil(data.length / dataLimit));
+    const [pages, setPages] = useState(Math.ceil(data.length / dataLimit));
     const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [currentPage]);
+
+    useEffect(() => {
+        setPages(Math.ceil(data.length / dataLimit));
+    }, [dataLimit, data.length]);
 
     const nextPage = () => {
         setCurrentPage(oldPage => oldPage + 1);
@@ -37,7 +48,7 @@ const Pagination = ({
 
     const paginationGroup = getPaginationGroup();
     // remove unnecessary page numbers
-    if(paginationGroup.length > pages) {
+    if (paginationGroup.length > pages) {
         paginationGroup.length = pages;
     }
 
@@ -57,7 +68,7 @@ const Pagination = ({
                     <button
                         key={index}
                         onClick={changePage}
-                        className={`pagination-btn ${currentPage === item ? 'active' : ''}`}
+                        className={`pagination-btn ${currentPage === item ? 'pagination-active' : ''}`}
                     >
                         {item}
                     </button>

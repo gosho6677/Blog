@@ -42,7 +42,7 @@ import Profile from './components/Profile/Profile';
     [x] add search bar in dashboard
     [x] extract create and edit components form into one shared
     [x] add logout get request to add token to blacklist array
-    [] add pagination FE
+    [x] add pagination FE and posts per page select tag
     [] exclude nested comment owner password and posts (populate trick)
     [] add error boundary component
 */

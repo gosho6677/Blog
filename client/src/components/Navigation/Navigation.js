@@ -25,7 +25,7 @@ const Navigation = () => {
 
     return (
         <nav className="nav">
-            <NavLink className="logo" to="/">Software Blogging Website</NavLink>
+            <NavLink className="logo" to={user ? '/dashboard' : '/'}>Software Blogging Website</NavLink>
             {user
                 ? <ul className="nav-links">
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/profile">Welcome, {user.username}!</NavLink></li>

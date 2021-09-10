@@ -27,8 +27,9 @@
     color: #999;
 }
 
-.active {
+.pagination-active {
     border: 1px solid #888;
-    color: #888;
+    /* color: #888; */
+    background: #345f97c7;
     pointer-events: none;
 }
