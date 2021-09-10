@@ -71,10 +71,12 @@
 
 .user-comment, .date-comment {
     display: inline-block;
+    width: 45%;
 }
 
 .date-comment {
-    margin-left: 58%;
+    margin-left: 7%;
+    text-align: end;
 }
 
 .form-comment {

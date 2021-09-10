@@ -1,8 +1,9 @@
 const Search = ({ searchQuery, setSearchQuery }) => {
     return (
         <>
-            <p className="search-p" value="Search">Search: </p>
+            <label htmlFor="search-bar" className="search-p" value="Search">Search: </label>
             <input
+                id="search-bar"
                 type="text"
                 className="search-input"
                 name="searchValue"
