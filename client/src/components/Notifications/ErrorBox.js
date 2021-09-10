@@ -8,6 +8,10 @@ const ErrorBox = ({ error, setError }) => {
         setTimeout(() => {
             setError('');
         }, 10000);
+
+        return () => {
+            setError('');
+        };
     }, [setError]);
 
     const errorHandler = () => {

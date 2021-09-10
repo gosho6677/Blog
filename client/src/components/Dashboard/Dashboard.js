@@ -4,6 +4,7 @@ import Search from './Search';
 import * as postService from '../../services/postService';
 import { filterPosts } from '../../utils/filterPosts';
 import './Dashboard.css';
+import Pagination from './Pagination';
 
 const Dashboard = ({ location }) => {
     const [posts, setPosts] = useState([]);
@@ -67,12 +68,15 @@ const Dashboard = ({ location }) => {
                     <option value="desc">Likes desc.</option>
                 </select>
             </div>
-            <div className="wrapper">
-                {filteredPosts.length 
-                    ? filteredPosts.map(p => <Card key={p._id} post={p} />) 
-                    : <div>No posts available at the moment...</div>
-                }
-            </div>
+            {filteredPosts.length
+                ? <Pagination
+                    Component={Card}
+                    data={filteredPosts}
+                    dataLimit={10}
+                    pageLimit={5}
+                />
+                : <h2>No posts available at the moment...</h2>
+            }
 
         </section>
     );
