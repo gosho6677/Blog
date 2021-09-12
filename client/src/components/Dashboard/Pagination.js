@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import './Pagination.css';
 
 const Pagination = ({
@@ -9,6 +10,7 @@ const Pagination = ({
 }) => {
     const [pages, setPages] = useState(Math.ceil(data.length / dataLimit));
     const [currentPage, setCurrentPage] = useState(1);
+    const history = useHistory();
 
     useEffect(() => {
         window.scroll({
@@ -22,8 +24,11 @@ const Pagination = ({
         setCurrentPage(1);
     }, [dataLimit, data.length]);
 
+
+
     const nextPage = () => {
         setCurrentPage(oldPage => oldPage + 1);
+        history.push(`/dashboard?page=${currentPage + 1}`);
     };
 
     const previousPage = () => {

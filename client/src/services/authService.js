@@ -33,5 +33,11 @@ export const logout = async () => {
             'Authorization': token
         }
     });
+    document.cookie.split(";")
+        .forEach(function (c) {
+            document.cookie = c
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
     return response.json();
 };

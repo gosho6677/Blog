@@ -53,11 +53,10 @@ import NotFound from './components/NotFound/NotFound';
 function App() {
     const [user, setUser] = useState(null);
     const [cookies] = useCookies();
-
     useEffect(() => {
         if (cookies.token) {
             const { email, username, _id } = jwt_decode(cookies.token);
-            setUser({ email, username, _id });
+            setUser({ email, username, _id, setUser });
             postService.initializeToken(cookies.token);
         } else {
             setUser(null);
@@ -70,7 +69,7 @@ function App() {
                 <Navigation />
                 <Switch>
                     <Route path='/' exact component={isAuth(Home)} />
-                    <Route path='/dashboard' exact component={isGuest(Dashboard)} />
+                    <Route path='/dashboard' component={isGuest(Dashboard)} />
                     <Route path='/auth/login' exact component={isAuth(Login)} />
                     <Route path='/auth/register' exact component={isAuth(Register)} />
                     <Route path='/posts/create' exact component={isGuest(Create)} />
