@@ -8,11 +8,11 @@ const isAuth = (WrappedComponent) => {
         const history = useHistory();
         
         useEffect(() => {
-            if (user) {
+            if (user.isAuthenticated && !user.initialLoad) {
                 history.push('/dashboard');
                 return null;
             }
-        });
+        }, [history, user]);
 
         return <WrappedComponent {...props} />;
     };

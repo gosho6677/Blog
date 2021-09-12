@@ -11,7 +11,7 @@ const Navigation = () => {
 
     const logoutHandler = async () => {
         await authService.logout();
-        user.setUser(null);
+        user.setUser({ isAuthenticated: false });
         history.push('/');
     };
 
@@ -21,8 +21,8 @@ const Navigation = () => {
 
     return (
         <nav className="nav">
-            <NavLink className="logo" to={user ? '/dashboard' : '/'}>Software Blogging Website</NavLink>
-            {user
+            <NavLink className="logo" to={user.isAuthenticated ? '/dashboard' : '/'}>Software Blogging Website</NavLink>
+            {user.isAuthenticated
                 ? <ul className="nav-links">
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/profile">Welcome, {user.username}!</NavLink></li>
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/dashboard">Dashboard</NavLink></li>

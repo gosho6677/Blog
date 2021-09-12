@@ -50,18 +50,20 @@ import NotFound from './components/NotFound/NotFound';
     [] owners can delete all comments on their posts
     [] comment creator can delete his comment on given post
 */
+
 function App() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({ isAuthenticated: false, initialLoad: true });
     const [cookies] = useCookies();
+
     useEffect(() => {
         if (cookies.token) {
             const { email, username, _id } = jwt_decode(cookies.token);
-            setUser({ email, username, _id, setUser });
+            setUser({ email, username, _id, setUser, isAuthenticated: true, initialLoad: false });
             postService.initializeToken(cookies.token);
         } else {
-            setUser(null);
+            setUser({ isAuthenticated: false });
         }
-    }, [cookies]);
+    }, [cookies.token]);
 
     return (
         <>

@@ -125,16 +125,16 @@ const Details = ({ match, history }) => {
                             <Link to={`/posts/edit/${postId}`} className="details-page-button">Edit</Link>
                             <button onClick={deleteHandler} className="details-page-button red">Delete</button>
                         </>
-                        : user && !hasLiked ?
+                        : user.isAuthenticated && !hasLiked ?
                             <button onClick={likeHandler} className="details-page-button green">Like</button>
-                            : user ? <button onClick={dislikeHandler} className="details-page-button red">Dislike</button> : ''}
+                            : user.isAuthenticated ? <button onClick={dislikeHandler} className="details-page-button red">Dislike</button> : ''}
                 </div>
             </div>
             <h3>**Comments</h3> <hr />
             <div className="comments">
                 {post.comments?.length ? post.comments.map(c => <Comment key={c._id} comment={c} />) : <div>No comments yet!</div>}
             </div>
-            {user &&
+            {user.isAuthenticated &&
                 <form onSubmit={commentHandler} className="form-comment">
                     <h2>Comment:</h2>
                     <p>

@@ -6,7 +6,7 @@ import { filterPosts } from '../../utils/filterPosts';
 import './Dashboard.css';
 import Pagination from './Pagination';
 
-const Dashboard = ({ location }) => {
+const Dashboard = () => {
     const [posts, setPosts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [postsPerPage, setPostsPerPage] = useState(10);

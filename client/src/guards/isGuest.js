@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-// import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router';
 import AuthContext from '../contexts/AuthContext';
 
@@ -9,7 +8,7 @@ const isGuest = (WrappedComponent) => {
         const history = useHistory();
 
         useEffect(() => {
-            if (!user) {
+            if (!user.isAuthenticated && !user.initialLoad) {
                 history.push('/');
                 return null;
             }
