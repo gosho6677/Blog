@@ -72,13 +72,34 @@ const Details = ({ match, history }) => {
         }
     };
 
-    const deleteHandler = async e => {
+    const deletePostHandler = async e => {
         try {
             const resp = await postService.del(postId);
             if (!resp.ok) {
                 throw new Error(resp.error);
             }
             history.push('/dashboard');
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    const deleteCommentHandler = async e => {
+        if(!e.target.tagName === 'I' || !e.target.classList.contains('fa-trash-alt')) {
+            return;
+        }
+
+        try {
+            const commentId =  e.target.dataset.id;
+            const res = await postService.deleteComment(post._id, commentId);
+
+            if(!res.ok) {
+                throw new Error(res.error);
+            }
+            setPost(oldPost => ({
+                ...oldPost,
+                comments: oldPost.comments.filter(c => c._id !== commentId)
+            }));
         } catch (err) {
             setError(err.message);
         }
@@ -123,7 +144,7 @@ const Details = ({ match, history }) => {
                     {isOwner ?
                         <>
                             <Link to={`/posts/edit/${postId}`} className="details-page-button">Edit</Link>
-                            <button onClick={deleteHandler} className="details-page-button red">Delete</button>
+                            <button onClick={deletePostHandler} className="details-page-button red">Delete</button>
                         </>
                         : user.isAuthenticated && !hasLiked ?
                             <button onClick={likeHandler} className="details-page-button green">Like</button>
@@ -131,8 +152,11 @@ const Details = ({ match, history }) => {
                 </div>
             </div>
             <h3>**Comments</h3> <hr />
-            <div className="comments">
-                {post.comments?.length ? post.comments.map(c => <Comment key={c._id} comment={c} />) : <div>No comments yet!</div>}
+            <div className="comments" onClick={deleteCommentHandler}>
+                {post.comments?.length 
+                    ? post.comments.map(c => <Comment key={c._id} comment={c} isOwner={isOwner} userId={user._id} />) 
+                    : <div>No comments yet!</div>
+                }
             </div>
             {user.isAuthenticated &&
                 <form onSubmit={commentHandler} className="form-comment">

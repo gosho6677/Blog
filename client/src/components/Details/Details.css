@@ -79,6 +79,14 @@
     text-align: end;
 }
 
+.delete-comment {
+    position: relative;
+    bottom: .5rem;
+    left: 3px;
+    margin-left: .5rem;
+    cursor: pointer;
+}
+
 .form-comment {
     display: flex;
     justify-content: center;

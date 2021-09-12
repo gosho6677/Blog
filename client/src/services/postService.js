@@ -86,3 +86,13 @@ export const comment = async (description, id) => {
     });
     return await resp.json();
 };
+
+export const deleteComment = async (postId, commentId) => {
+    const resp = await fetch(`${baseUrl}/${postId}/comment/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token
+        },
+    });
+    return await resp.json();
+};

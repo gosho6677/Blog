@@ -46,7 +46,7 @@ import NotFound from './components/NotFound/NotFound';
     [x] add pagination FE and posts per page select tag
     [x] exclude nested comment owner password and posts (populate trick)
     [] add error boundary component
-    [] add 404 not found page component
+    [x] add 404 not found page component
     [] owners can delete all comments on their posts
     [] comment creator can delete his comment on given post
 */

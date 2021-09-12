@@ -119,7 +119,6 @@ router.get('/dislike/:id', isAuthorized(), async (req, res) => {
 });
 
 // comments
-
 router.post('/comment/:id', isAuthorized(), async (req, res) => {
     const postId = req.params.id;
     const userId = req.user._id;
@@ -131,6 +130,18 @@ router.post('/comment/:id', isAuthorized(), async (req, res) => {
         }
         const comment = await req.data.commentPost(commentDescription, postId, userId);
         res.status(201).json({ ok: true, comment });
+    } catch (err) {
+        res.status(400).json({ ok: false, error: err.message });
+    }
+});
+
+router.delete('/:postId/comment/:id', isAuthorized(), async (req, res) => {
+    const commentId = req.params.id;
+    const postId = req.params.postId;
+
+    try {
+        await req.data.deleteComment(postId, commentId);
+        res.status(201).json({ ok: true });
     } catch (err) {
         res.status(400).json({ ok: false, error: err.message });
     }

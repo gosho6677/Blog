@@ -125,6 +125,15 @@ async function commentPost(description, postId, userId) {
     return comment.populate('owner', '-password');
 }
 
+async function deleteComment(postId, commentId) {
+    const post = await Post.findById(postId);
+
+    const commentIdx = post.comments.indexOf(commentId);
+    post.comments.splice(commentIdx, 1);
+
+    await Comment.findByIdAndDelete(commentId);
+}
+
 module.exports = {
     getAllPosts,
     getTopThree,
@@ -135,4 +144,5 @@ module.exports = {
     likePost,
     dislikePost,
     commentPost,
+    deleteComment,
 };
