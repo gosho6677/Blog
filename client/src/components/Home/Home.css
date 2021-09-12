@@ -2,6 +2,14 @@
     margin: 3px;
 }
 
+.home > h3 {
+    text-align: center;
+}
+
+.home > p {
+    margin-left: 8%;
+}
+
 .heading {
     color: white;
     text-align: center;

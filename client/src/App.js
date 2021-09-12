@@ -19,6 +19,7 @@ import * as postService from './services/postService';
 import Details from './components/Details/Details';
 import Edit from './components/Edit/Edit';
 import Profile from './components/Profile/Profile';
+import NotFound from './components/NotFound/NotFound';
 
 // TODO: 
 /*
@@ -45,6 +46,7 @@ import Profile from './components/Profile/Profile';
     [x] add pagination FE and posts per page select tag
     [x] exclude nested comment owner password and posts (populate trick)
     [] add error boundary component
+    [] add 404 not found page component
     [] owners can delete all comments on their posts
     [] comment creator can delete his comment on given post
 */
@@ -75,6 +77,7 @@ function App() {
                     <Route path='/posts/:id' exact component={Details} />
                     <Route path='/posts/edit/:id' exact component={isGuest(Edit)} />
                     <Route path='/profile' exact component={isGuest(Profile)} />
+                    <Route path='*' component={NotFound} />
                 </Switch>
                 <Footer />
             </AuthContext.Provider>

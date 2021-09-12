@@ -34,9 +34,9 @@ const Home = () => {
                 Welcome to our site where daily software news are shared.
             </h1>
             <hr />
-            <p>
+            <h3>
                 If you want to read, like, comment posts or publish your own, please <Link to="/auth/register">click on this link and  register first</Link> or if you're already a member <Link to="/auth/login">please log in.</Link>
-            </p>
+            </h3>
             <p>
                 Here's a glimpse of our top 3 most liked publications:
             </p>

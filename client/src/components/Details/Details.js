@@ -33,6 +33,13 @@ const Details = ({ match, history }) => {
         };
     }, [postId, user]);
 
+    useEffect(() => {
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, []);
+
     const likeHandler = async e => {
         try {
             const resp = await postService.like(postId);
@@ -120,27 +127,28 @@ const Details = ({ match, history }) => {
                         </>
                         : user && !hasLiked ?
                             <button onClick={likeHandler} className="details-page-button green">Like</button>
-                            : <button onClick={dislikeHandler} className="details-page-button red">Dislike</button>}
+                            : user ? <button onClick={dislikeHandler} className="details-page-button red">Dislike</button> : ''}
                 </div>
             </div>
             <h3>**Comments</h3> <hr />
             <div className="comments">
                 {post.comments?.length ? post.comments.map(c => <Comment key={c._id} comment={c} />) : <div>No comments yet!</div>}
             </div>
-
-            <form onSubmit={commentHandler} className="form-comment">
-                <h2>Comment:</h2>
-                <p>
-                    <textarea
-                        rows="12"
-                        cols="50"
-                        type="text"
-                        className="form-textarea"
-                        name="comment"
-                    />
-                </p>
-                <input className="form-comment-btn" type="submit" value="Submit" />
-            </form>
+            {user &&
+                <form onSubmit={commentHandler} className="form-comment">
+                    <h2>Comment:</h2>
+                    <p>
+                        <textarea
+                            rows="12"
+                            cols="50"
+                            type="text"
+                            className="form-textarea"
+                            name="comment"
+                        />
+                    </p>
+                    <input className="form-comment-btn" type="submit" value="Submit" />
+                </form>
+            }
         </div>
     );
 };
