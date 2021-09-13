@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
+import useQuery from '../../hooks/useQuery';
+
 import Card from '../shared/Card';
 import Search from './Search';
-import * as postService from '../../services/postService';
-import { filterPosts } from '../../utils/filterPosts';
-import './Dashboard.css';
 import Pagination from './Pagination';
 
-const Dashboard = () => {
+import { filterPosts } from '../../utils/filterPosts';
+import * as postService from '../../services/postService';
+import './Dashboard.css';
+
+const Dashboard = ({ location }) => {
     const [posts, setPosts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [postsPerPage, setPostsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [query, setQuery] = useQuery();
+    const selectSortByRef = useRef();
+    const selectPostsPerPageRef = useRef();
     const filteredPosts = filterPosts(searchQuery, posts);
 
     useEffect(() => {
@@ -25,12 +32,13 @@ const Dashboard = () => {
         };
     }, []);
 
-    const postsPerPageHandler = e => {
-        setPostsPerPage(Number(e.target.value));
-    };
+    useEffect(() => {
+        setCurrentPage(query.page);
+    }, [location.search, query.page]);
 
-    const sortHandler = e => {
-        switch (e.target.value) {
+    const sortHandler = useCallback((e, val) => {
+        const type = e?.target.value || val;
+        switch (type) {
             case 'desc': {
                 setPosts(oldPosts => {
                     return [...oldPosts.sort((a, b) => b.likes.length - a.likes.length)];
@@ -56,9 +64,34 @@ const Dashboard = () => {
                 return;
             }
             default:
-                return console.log(e.target);
+                return false;
         }
 
+    }, []);
+
+    useEffect(() => {
+        /* 
+            Adjusts page, posts per page and sort if user pastes URL with specific page and page size.
+            Adjusts select tag with correct value on load if query is present
+            Use detailed dependencies (not only query or only posts), because it causes infinite loops
+            when used incorrectly.
+        */
+        if (query.page) {
+            setCurrentPage(Number(query.page));
+        }
+        if (query.pageSize) {
+            setPostsPerPage(Number(query.pageSize));
+            selectPostsPerPageRef.current.value = query.pageSize;
+        }
+        if (posts.length && query.sort) {
+            sortHandler(undefined, query.sort);
+            selectSortByRef.current.value = query.sort;
+        }
+
+    }, [query.page, query.pageSize, query.sort, posts.length, sortHandler]);
+
+    const postsPerPageHandler = e => {
+        setPostsPerPage(Number(e.target.value));
     };
 
     return (
@@ -66,14 +99,28 @@ const Dashboard = () => {
             <div className="sort">
                 <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                 <p className="sort-p">Posts per page: </p>
-                <select onChange={postsPerPageHandler} className="perPage-select">
+                <select
+                    onChange={(e) => {
+                        postsPerPageHandler(e);
+                        setQuery({ pageSize: Number(e.target.value) });
+                    }}
+                    ref={selectPostsPerPageRef}
+                    className="perPage-select"
+                >
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
                 <p className="sort-p">Sort by: </p>
-                <select onChange={sortHandler} className="sort-select">
+                <select
+                    onChange={(e) => {
+                        sortHandler(e);
+                        setQuery({ sort: e.target.value });
+                    }}
+                    ref={selectSortByRef}
+                    className="sort-select"
+                >
                     <option value="oldest">Oldest</option>
                     <option value="recent">Recent</option>
                     <option value="asc">Likes asc.</option>
@@ -86,6 +133,10 @@ const Dashboard = () => {
                     data={filteredPosts}
                     dataLimit={postsPerPage}
                     pageLimit={5}
+                    query={query}
+                    setQuery={setQuery}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
                 : <h2>No posts available at the moment...</h2>
             }

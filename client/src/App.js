@@ -50,8 +50,9 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
     [x] owners can delete all comments on their posts
     [x] comment creator can delete his comment on given post
     [x] add error boundary component
-    [] add persistence on page reload at queries in dashboard (sort by and items per page)
-    [] add comments pagination
+    [x] add persistence on page reload at queries in dashboard (sort by and items per page)
+    [] add search to the query parameters
+    [] adjust the code to some of the google lighthouse recommendations
 */
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
                 <ErrorBoundary>
                     <Switch>
                         <Route path='/' exact component={isAuth(Home)} />
+                        <Route path='/dashboard' exact component={isGuest(Dashboard)} />
                         <Route path='/dashboard' component={isGuest(Dashboard)} />
                         <Route path='/auth/login' exact component={isAuth(Login)} />
                         <Route path='/auth/register' exact component={isAuth(Register)} />

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+
 import AuthContext from "../../contexts/AuthContext";
 import * as authService from '../../services/authService';
 import "./Navigation.css";
@@ -21,14 +22,18 @@ const Navigation = () => {
 
     return (
         <nav className="nav">
-            <NavLink className="logo" to={user.isAuthenticated ? '/dashboard' : '/'}>Software Blogging Website</NavLink>
+            <NavLink
+                className="logo"
+                to={user.isAuthenticated ? '/dashboard?page=1&pageSize=10&sort=oldest' : '/'}
+            >
+                Software Blogging Website
+            </NavLink>
             {user.isAuthenticated
                 ? <ul className="nav-links">
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/profile">Welcome, {user.username}!</NavLink></li>
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/dashboard">Dashboard</NavLink></li>
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/posts/create">Create Post</NavLink></li>
-                    <li><button onClick={logoutHandler} className="logoutBtn" to="/">Logout</button></li>
-                    {/* <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/logout">Logout</NavLink></li> */}
+                    <li><button onClick={logoutHandler} className="logoutBtn">Logout</button></li>
                 </ul>
                 : <ul className="nav-links">
                     <li><NavLink activeStyle={activeStyle} className="nav-item" to="/auth/login">Login</NavLink></li>

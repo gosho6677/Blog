@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
 import './Pagination.css';
 
 const Pagination = ({
@@ -7,10 +6,12 @@ const Pagination = ({
     data,
     dataLimit,
     pageLimit,
+    query,
+    setQuery,
+    currentPage,
+    setCurrentPage,
 }) => {
     const [pages, setPages] = useState(Math.ceil(data.length / dataLimit));
-    const [currentPage, setCurrentPage] = useState(1);
-    const history = useHistory();
 
     useEffect(() => {
         window.scroll({
@@ -20,23 +21,37 @@ const Pagination = ({
     }, [currentPage]);
 
     useEffect(() => {
-        setPages(Math.ceil(data.length / dataLimit));
-        setCurrentPage(1);
-    }, [dataLimit, data.length]);
-
-
+        const calculatedPages = Math.ceil(data.length / dataLimit);
+        const pageToSet = calculatedPages > query.page ? query.page : 1;
+        // avoids setting page to bigger number than the available calculated ones
+        setPages(calculatedPages);
+        setCurrentPage(pageToSet);
+        setQuery({ page: pageToSet });
+    }, [dataLimit, data.length, setQuery, setCurrentPage, query.page]);
 
     const nextPage = () => {
-        setCurrentPage(oldPage => oldPage + 1);
-        history.push(`/dashboard?page=${currentPage + 1}`);
+        // setCurrentPage(oldPage => oldPage + 1);
+        const next = Number(query.page) + 1;
+        setCurrentPage(next);
+        setQuery({ page: next });
     };
 
+    /* 
+        using query to set previous and next pages because when the "home" button is clicked 
+        on the navigation and then if you want to switch pages with the next button it keeps 
+        its previous state and renders it e.g. if u come back from 5th page to home and click 
+        on Next page button it immediately renders page 6 which is wrong.
+    */
     const previousPage = () => {
-        setCurrentPage(oldPage => oldPage - 1);
+        const prev = Number(query.page) - 1;
+        setCurrentPage(prev);
+        setQuery({ page: prev });
     };
 
     const changePage = e => {
-        setCurrentPage(Number(e.target.textContent));
+        const p = Number(e.target.textContent);
+        setCurrentPage(p);
+        setQuery({ page: p });
     };
 
     const paginatedData = () => {
@@ -49,7 +64,7 @@ const Pagination = ({
     // used to show page numbers
     const getPaginationGroup = () => {
         const start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
-        return new Array(pageLimit > pages ? pageLimit : pages).fill().map((_, i) => start + i + 1);
+        return new Array(pageLimit).fill().map((_, i) => start + i + 1);
     };
 
     const paginationGroup = getPaginationGroup();

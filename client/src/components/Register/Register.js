@@ -36,7 +36,7 @@ const Register = ({ history }) => {
 
             setCookie('token', response.token, { path: '/' });
 
-            history.push('/dashboard');
+            history.push('/dashboard?page=1&pageSize=10&sort=oldest');
         } catch (err) {
             setError(err.message);
         }
