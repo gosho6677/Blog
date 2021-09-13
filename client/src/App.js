@@ -20,6 +20,7 @@ import Details from './components/Details/Details';
 import Edit from './components/Edit/Edit';
 import Profile from './components/Profile/Profile';
 import NotFound from './components/NotFound/NotFound';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 // TODO: 
 /*
@@ -45,10 +46,12 @@ import NotFound from './components/NotFound/NotFound';
     [x] add logout get request to add token to blacklist array
     [x] add pagination FE and posts per page select tag
     [x] exclude nested comment owner password and posts (populate trick)
-    [] add error boundary component
     [x] add 404 not found page component
-    [] owners can delete all comments on their posts
-    [] comment creator can delete his comment on given post
+    [x] owners can delete all comments on their posts
+    [x] comment creator can delete his comment on given post
+    [x] add error boundary component
+    [] add persistence on page reload at queries in dashboard (sort by and items per page)
+    [] add comments pagination
 */
 
 function App() {
@@ -69,17 +72,19 @@ function App() {
         <>
             <AuthContext.Provider value={user}>
                 <Navigation />
-                <Switch>
-                    <Route path='/' exact component={isAuth(Home)} />
-                    <Route path='/dashboard' component={isGuest(Dashboard)} />
-                    <Route path='/auth/login' exact component={isAuth(Login)} />
-                    <Route path='/auth/register' exact component={isAuth(Register)} />
-                    <Route path='/posts/create' exact component={isGuest(Create)} />
-                    <Route path='/posts/:id' exact component={Details} />
-                    <Route path='/posts/edit/:id' exact component={isGuest(Edit)} />
-                    <Route path='/profile' exact component={isGuest(Profile)} />
-                    <Route path='*' component={NotFound} />
-                </Switch>
+                <ErrorBoundary>
+                    <Switch>
+                        <Route path='/' exact component={isAuth(Home)} />
+                        <Route path='/dashboard' component={isGuest(Dashboard)} />
+                        <Route path='/auth/login' exact component={isAuth(Login)} />
+                        <Route path='/auth/register' exact component={isAuth(Register)} />
+                        <Route path='/posts/create' exact component={isGuest(Create)} />
+                        <Route path='/posts/:id' exact component={Details} />
+                        <Route path='/posts/edit/:id' exact component={isGuest(Edit)} />
+                        <Route path='/profile' exact component={isGuest(Profile)} />
+                        <Route path='*' component={NotFound} />
+                    </Switch>
+                </ErrorBoundary>
                 <Footer />
             </AuthContext.Provider>
         </>
