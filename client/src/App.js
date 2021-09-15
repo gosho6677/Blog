@@ -51,6 +51,8 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
     [x] comment creator can delete his comment on given post
     [x] add error boundary component
     [x] add persistence on page reload at queries in dashboard (sort by and items per page)
+    [] add loading spinner
+    [] fill up readme.md
     [] add search to the query parameters
     [] adjust the code to some of the google lighthouse recommendations
 */

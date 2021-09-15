@@ -41,6 +41,7 @@ async function getTopThree() {
                     "description": 1,
                     "imageUrl": 1,
                     "likes": 1,
+                    "iat": 1,
                     "length": { "$size": "$likes" }
                 }
             },

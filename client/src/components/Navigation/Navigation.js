@@ -22,11 +22,17 @@ const Navigation = () => {
 
     return (
         <nav className="nav">
-            <NavLink
+            {/* <NavLink
                 className="logo"
                 to={user.isAuthenticated ? '/dashboard?page=1&pageSize=10&sort=oldest' : '/'}
             >
                 Software Blogging Website
+            </NavLink> */}
+            <NavLink
+                className="logo"
+                to={user.isAuthenticated ? '/dashboard?page=1&pageSize=10&sort=oldest' : '/'}
+            >
+                <img className="logo-img" src="/android-chrome-512x512.png" alt="logo" />
             </NavLink>
             {user.isAuthenticated
                 ? <ul className="nav-links">

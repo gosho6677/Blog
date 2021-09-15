@@ -22,7 +22,7 @@ const Pagination = ({
 
     useEffect(() => {
         const calculatedPages = Math.ceil(data.length / dataLimit);
-        const pageToSet = calculatedPages > query.page ? query.page : 1;
+        const pageToSet = calculatedPages >= query.page ? query.page : 1;
         // avoids setting page to bigger number than the available calculated ones
         setPages(calculatedPages);
         setCurrentPage(pageToSet);
@@ -81,7 +81,7 @@ const Pagination = ({
             <div className="pagination">
                 <button
                     onClick={previousPage}
-                    className={`pagination-btn prev ${currentPage === 1 ? 'disabled' : ''}`}
+                    className={`pagination-btn prev ${Number(currentPage) === 1 ? 'disabled' : ''}`}
                 >
                     Previous
                 </button>
@@ -89,14 +89,14 @@ const Pagination = ({
                     <button
                         key={index}
                         onClick={changePage}
-                        className={`pagination-btn ${currentPage === item ? 'pagination-active' : ''}`}
+                        className={`pagination-btn ${Number(currentPage) === item ? 'pagination-active' : ''}`}
                     >
                         {item}
                     </button>
                 ))}
                 <button
                     onClick={nextPage}
-                    className={`pagination-btn next ${currentPage === pages ? 'disabled' : ''}`}
+                    className={`pagination-btn next ${Number(currentPage) === pages ? 'disabled' : ''}`}
                 >
                     Next
                 </button>

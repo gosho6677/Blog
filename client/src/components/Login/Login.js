@@ -26,7 +26,7 @@ const Login = ({ history }) => {
             setEmail('');
             setPassword('');
             setCookie('token', response.token, { path: '/' });
-            history.push('/dashboard?page=1&pageSize=10&sort=oldest');
+            history.push('/dashboard');
         } catch (err) {
             setError(err.message);
             console.error(err.message);
@@ -45,7 +45,7 @@ const Login = ({ history }) => {
             <div className="screen">
                 <div className="screen__content">
                     <form onSubmit={loginHandler} className="login">
-                        <h2 className="button__text">Login form</h2>
+                        <h2 className="login__field">Login form</h2>
                         <div className="login__field">
                             <i className="login__icon fas fa-envelope"></i>
                             <input
@@ -68,7 +68,7 @@ const Login = ({ history }) => {
                                 placeholder="Password"
                             />
                         </div>
-                        <button className="button login__submit">
+                        <button className="login__submit">
                             <span className="button__text">LOGIN</span>
                             <i className="button__icon fas fa-chevron-right"></i>
                         </button>

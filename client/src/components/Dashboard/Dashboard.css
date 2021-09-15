@@ -7,6 +7,12 @@
     /* background-color: rgba(31, 15, 177, 0.26); */
 }
 
+.posts-available {
+    flex-grow: 1;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
 .search-input {
     background: rgba(0, 0, 0, 0.137);
     color: white;

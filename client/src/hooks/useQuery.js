@@ -3,12 +3,19 @@ import queryString from 'query-string';
 import { useCallback } from 'react';
 
 // query is declared here to avoid infinite re-renders
-let query;
+let query = {
+    page: 1,
+    pageSize: 10,
+    sort: 'oldest'
+};
 
 const useQuery = () => {
     const location = useLocation();
     const history = useHistory();
-    query = queryString.parse(location.search);
+    query = {
+        ...query,
+        ...queryString.parse(location.search),
+    };
 
     const setNewQuery = useCallback((q = {}) => {
         const key = Object.keys(q)[0];

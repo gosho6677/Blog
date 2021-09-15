@@ -36,7 +36,7 @@ const Register = ({ history }) => {
 
             setCookie('token', response.token, { path: '/' });
 
-            history.push('/dashboard?page=1&pageSize=10&sort=oldest');
+            history.push('/dashboard');
         } catch (err) {
             setError(err.message);
         }
@@ -48,7 +48,7 @@ const Register = ({ history }) => {
                 <div className="screen__content">
                     {error && <ErrorBox error={error} setError={setError} />}
                     <form onSubmit={registerHandler} className="login">
-                        <h2 className="button__text">Register form</h2>
+                        <h2 className="login__field">Register form</h2>
                         <div className="login__field">
                             <i className="login__icon fas fa-envelope"></i>
                             <input
@@ -89,7 +89,7 @@ const Register = ({ history }) => {
                                 placeholder="Repeat Password"
                             />
                         </div>
-                        <button className="button login__submit">
+                        <button className="login__submit">
                             <span className="button__text">REGISTER</span>
                             <i className="button__icon fas fa-chevron-right"></i>
                         </button>

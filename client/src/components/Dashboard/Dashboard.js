@@ -97,6 +97,7 @@ const Dashboard = ({ location }) => {
     return (
         <section>
             <div className="sort">
+                <p className="posts-available">{filteredPosts.length} posts available.</p>
                 <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                 <p className="sort-p">Posts per page: </p>
                 <select
