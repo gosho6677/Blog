@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import * as postService from '../../services/postService';
 import './Home.css';
 import ErrorBox from '../Notifications/ErrorBox';
+import Loading from '../Loading/Loading';
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -15,9 +17,11 @@ const Home = () => {
                 if(!p.ok) {
                     throw new Error(p.error);
                 }
+                setLoading(false);
                 setPosts(p.posts);
             })
             .catch(err => {
+                setLoading(false);
                 setError(err.message);
             });
 
@@ -26,6 +30,10 @@ const Home = () => {
             setError('');
         };
     }, []);
+
+    if(loading) {
+        return <Loading />;
+    }
 
     return (
         <main className="home">

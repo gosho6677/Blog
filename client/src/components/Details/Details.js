@@ -5,9 +5,11 @@ import ErrorBox from '../Notifications/ErrorBox';
 import AuthContext from '../../contexts/AuthContext';
 import Comment from './Comment';
 import './Details.css';
+import Loading from '../Loading/Loading';
 
 const Details = ({ match, history }) => {
     const [post, setPost] = useState({});
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [isOwner, setIsOwner] = useState(false);
     const [hasLiked, setHasLiked] = useState(false);
@@ -20,11 +22,13 @@ const Details = ({ match, history }) => {
                 if (!res.ok) {
                     throw new Error(res.error);
                 }
+                setLoading(false);
                 setPost(res.post);
                 setIsOwner(res.post.owner._id === user?._id);
                 setHasLiked(res.post.likes.includes(user?._id));
             })
             .catch(err => {
+                setLoading(false);
                 setError(err.message);
             });
 
@@ -85,15 +89,15 @@ const Details = ({ match, history }) => {
     };
 
     const deleteCommentHandler = async e => {
-        if(!e.target.tagName === 'I' || !e.target.classList.contains('fa-trash-alt')) {
+        if (!e.target.tagName === 'I' || !e.target.classList.contains('fa-trash-alt')) {
             return;
         }
 
         try {
-            const commentId =  e.target.dataset.id;
+            const commentId = e.target.dataset.id;
             const res = await postService.deleteComment(post._id, commentId);
 
-            if(!res.ok) {
+            if (!res.ok) {
                 throw new Error(res.error);
             }
             setPost(oldPost => ({
@@ -129,6 +133,10 @@ const Details = ({ match, history }) => {
         }
     };
 
+    if(loading) {
+        return <Loading />;
+    }
+
     return (
         <div>
             {error && <ErrorBox error={error} setError={setError} />}
@@ -153,8 +161,8 @@ const Details = ({ match, history }) => {
             </div>
             <h3>**Comments</h3> <hr />
             <div className="comments" onClick={deleteCommentHandler}>
-                {post.comments?.length 
-                    ? post.comments.map(c => <Comment key={c._id} comment={c} isOwner={isOwner} userId={user._id} />) 
+                {post.comments?.length
+                    ? post.comments.map(c => <Comment key={c._id} comment={c} isOwner={isOwner} userId={user._id} />)
                     : <div>No comments yet!</div>
                 }
             </div>

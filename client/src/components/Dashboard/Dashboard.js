@@ -8,12 +8,16 @@ import Pagination from './Pagination';
 import { filterPosts } from '../../utils/filterPosts';
 import * as postService from '../../services/postService';
 import './Dashboard.css';
+import ErrorBox from '../Notifications/ErrorBox';
+import Loading from '../Loading/Loading';
 
 const Dashboard = ({ location }) => {
     const [posts, setPosts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [postsPerPage, setPostsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
     const [query, setQuery] = useQuery();
     const selectSortByRef = useRef();
     const selectPostsPerPageRef = useRef();
@@ -24,7 +28,13 @@ const Dashboard = ({ location }) => {
             .then(res => {
                 if (res.ok) {
                     setPosts(res.posts);
+                    setLoading(false);
                 }
+            })
+            .catch(err => {
+                setError('Something went wrong! Please try again later.');
+                setLoading(false);
+                console.error(err.message);
             });
 
         return () => {
@@ -81,11 +91,15 @@ const Dashboard = ({ location }) => {
         }
         if (query.pageSize) {
             setPostsPerPage(Number(query.pageSize));
-            selectPostsPerPageRef.current.value = query.pageSize;
+            if(selectPostsPerPageRef.current) {
+                selectPostsPerPageRef.current.value = query.pageSize;
+            }
         }
         if (posts.length && query.sort) {
             sortHandler(undefined, query.sort);
-            selectSortByRef.current.value = query.sort;
+            if(selectSortByRef.current) {
+                selectSortByRef.current.value = query.sort;
+            }
         }
 
     }, [query.page, query.pageSize, query.sort, posts.length, sortHandler]);
@@ -94,8 +108,13 @@ const Dashboard = ({ location }) => {
         setPostsPerPage(Number(e.target.value));
     };
 
+    if(loading) {
+        return <Loading />;
+    }
+
     return (
         <section>
+            {error && <ErrorBox error={error} setError={setError} />}
             <div className="sort">
                 <p className="posts-available">{filteredPosts.length} posts available.</p>
                 <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

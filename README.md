@@ -98,9 +98,10 @@ Edit is similar to create page and that's why I've the form as a shared componen
 Profile page is also simple, it shows the username, email and the published posts of the user.
 
 ### other
-    Тhere are many small details in this project, which to notice you must check the code itself.
+Тhere are many small details in this project, which to notice you must check the code itself.
 # Tech Stack
 > The main technologies I've used to build this end-to-end project are React js for front end views, node js as backend REST API and for database i've used MongoDB and mongoose. (MERN)
+
 # Todo list
 
  - [x] isAuthenticated, isGuest hoc guards
