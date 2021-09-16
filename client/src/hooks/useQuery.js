@@ -1,6 +1,6 @@
 import { useLocation, useHistory } from 'react-router';
-import queryString from 'query-string';
 import { useCallback } from 'react';
+import * as queryString from '../utils/queryStringParser';
 
 // query is declared here to avoid infinite re-renders
 let query = {
@@ -16,7 +16,7 @@ const useQuery = () => {
         ...query,
         ...queryString.parse(location.search),
     };
-
+    
     const setNewQuery = useCallback((q = {}) => {
         const key = Object.keys(q)[0];
         query[key] = q[key];

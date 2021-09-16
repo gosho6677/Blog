@@ -100,7 +100,7 @@ Profile page is also simple, it shows the username, email and the published post
 ### other
 Тhere are many small details in this project, which to notice you must check the code itself.
 # Tech Stack
-> The main technologies I've used to build this end-to-end project are React js for front end views, node js as backend REST API and for database i've used MongoDB and mongoose. (MERN)
+> The main technologies I've used to build this end-to-end project are React js for front end views, node js as backend REST API, for database i've used MongoDB and mongoose and for authentication json web tokens. (MERN)
 
 # Todo list
 
@@ -131,7 +131,7 @@ Profile page is also simple, it shows the username, email and the published post
  - [x] comment creator can delete his comment on given post
  - [x] add error boundary component
  - [x] add persistence on page reload at queries in dashboard (sort by and items per page)
- - [ ] add loading spinner
+ - [x] add loading spinner
  - [x] fill up readme.md
  - [ ] add search to the query parameters
  - [ ] adjust the code to some of the google lighthouse recommendations

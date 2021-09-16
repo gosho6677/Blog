@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import { getCurrentUser } from '../../services/userService';
+import Loading from '../Loading/Loading';
 import Card from '../shared/Card';
 import './Profile.css';
 
 const Profile = () => {
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const user = useContext(AuthContext);
 
     useEffect(() => {
@@ -14,17 +16,22 @@ const Profile = () => {
                 if (!res.ok) {
                     throw new Error(res.error);
                 }
+                setLoading(false);
                 setPosts(res.posts);
             })
             .catch(err => {
                 console.error(err.message);
-
+                setLoading(false);
             });
 
         return () => {
             setPosts([]);
         };
     }, [user?.username]);
+
+    if(loading) {
+        return <Loading />;
+    }
 
     return (
         <section className="profile">
